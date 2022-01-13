@@ -6,41 +6,8 @@
 //#include <vector>
 
 #include "classes/Graph.h"
-<<<<<<< HEAD
 #include "algorithms/Greedy.h"
 
-
-using namespace std;
-
-int main() {
-
-    int N= 4;
-    cout << "Hello, World!"<< endl;
-    Graph myGraph;
-
-    for(int i=1; i<N+1; i++){
-        Vertex v(i);
-        myGraph.addVertex(v);
-    }
-
-
-    vector<Vertex>* vertList= myGraph.getVerticesList();
-    Vertex actualNode, nextNode;
-
-    for(int i=0; i<N-1; i++){
-        actualNode= vertList->at(i);
-        nextNode= vertList->at(i+1);
-        myGraph.colorVertex(&actualNode, i);
-        myGraph.pairNeighbors(&actualNode, &nextNode);
-        //actualNode.printVertex();
-    }
-
-    myGraph.printGraph();
-
-    Greedy greedy;
-    greedy.runSimpleGreedy(&myGraph);
-
-=======
 #include "parse/Parser.h"
 #include "resolve/Resolve.h"
 #include <set>
@@ -54,21 +21,6 @@ int main(int argc, char **argv) {
 //    int N = 4;
     Parser p(args.back());
     Graph graph = p.parse();
-
-//    graph.getVerticesList()->at(0).setColor(1);
-//    std::cout << graph.getVerticesList()->at(0).getColor();
-//
-//    for (Vertex v: graph.getVerticesList()->at(11).getNeighborList()) {
-//        std::cout << "id: " << v.getId() << "color: " << v.getColor() << std::endl;
-//    }
-
-    Resolve res(graph);
-    res.res();
-
-//    graph.printGraph();
-
-
-
 
     //print the read graph
     //graph.printGraph();
@@ -92,14 +44,10 @@ int main(int argc, char **argv) {
 //    }
 //
 //    vertList->at(3).printVertex();
->>>>>>> 85b40b385c5fa35bb1e2492905ea985b08494c90
     return 0;
 }
 
 
-
-<<<<<<< HEAD
-=======
 
 /*
  * #include<bits/stdc++.h>
@@ -155,4 +103,3 @@ int main()
     }
 }
  * */
->>>>>>> 85b40b385c5fa35bb1e2492905ea985b08494c90

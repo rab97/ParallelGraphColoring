@@ -13,7 +13,6 @@ Graph(vector<Vertex> vertices){
 
 }*/
 
-<<<<<<< HEAD
 void Graph::printGraph(){
 
     int size= getVerticesList()->size();
@@ -22,10 +21,8 @@ void Graph::printGraph(){
     }
 }
 
-vector<int> Graph::getColors(){
-=======
+
 vector<int> Graph::getColors() {
->>>>>>> 85b40b385c5fa35bb1e2492905ea985b08494c90
     return colors;
 }
 
