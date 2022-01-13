@@ -14,7 +14,7 @@ class Graph {
 private:
 
     vector<int> colors;
-    vector<Vertex> verticesList;
+    vector <Vertex> verticesList;
 
 public:
 
@@ -24,14 +24,22 @@ public:
     void printGraph();
 
     vector<int> getColors();
+
     int getNumColors();
+
     void addColor(int newColor);
 
-    vector<Vertex> *getVerticesList();
+    vector <Vertex> *getVerticesList();
+
     int num_vertices();
+
     void addVertex(Vertex newVertex);
-    void colorVertex(Vertex* v, int c);
-    void pairNeighbors(Vertex* v1, Vertex* v2);
+
+    void colorVertex(Vertex *v, int c);
+
+    void pairNeighbors(Vertex *v1, Vertex *v2);
+
+    void printGraph();
 
 };
 
