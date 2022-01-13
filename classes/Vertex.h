@@ -15,21 +15,29 @@ private:
 
     int id;
     int color;
-    vector<Vertex> neighbors;
+    vector <Vertex> neighbors;
 
 public:
     Vertex();
-    Vertex(int _id, int _color, vector<Vertex> _neighbors);
+
+    Vertex(int _id, int _color, vector <Vertex> _neighbors);
+
     Vertex(int _id);
 
     void printVertex();
 
     int getId();
 
+    int getDegree();
+
     int getColor();
+
     void setColor(int newColor);
 
-    vector<Vertex> getNeighborList();
+    vector <Vertex> getNeighborList();
+
+    Vertex getVertexNeighbor(int id);
+
     void addNeighbor(Vertex newNeighbor);
 };
 

@@ -20,7 +20,7 @@ Graph Dimacs10Parser::parse() {
         throw std::runtime_error("Unexpected first_line size!");
     }
 
-    Graph g;
+    Graph g(V);
     for (int i = 0; i < V; i++) {
         Vertex v(i);
         std::string line;
@@ -32,7 +32,6 @@ Graph Dimacs10Parser::parse() {
 
         g.addVertex(v);
     }
-
     return g;
 }
 

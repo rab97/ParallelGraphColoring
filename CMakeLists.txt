@@ -1,12 +1,9 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.20)
 project(ParallelGraphColoring)
 
 set(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
-<<<<<<< HEAD
-add_executable(parallelGraphColoring main.cpp classes/Vertex.cpp classes/Graph.cpp algorithms/Greedy.cpp)
-
-=======
 add_executable(ParallelGraphColoring main.cpp classes/Vertex.h classes/Vertex.cpp classes/Graph.h classes/Graph.cpp
-        parse/Parser.h parse/Parser.cpp parse/DimacsParser.h parse/DimacsParser.cpp parse/Dimacs10Parser.h parse/Dimacs10Parser.cpp main.cpp)
->>>>>>> 85b40b385c5fa35bb1e2492905ea985b08494c90
+        parse/Parser.h parse/Parser.cpp parse/DimacsParser.h parse/DimacsParser.cpp parse/Dimacs10Parser.h parse/Dimacs10Parser.cpp main.cpp algorithms/Algorithm.h
+        algorithms/ParallelColoring.h algorithms/SDL.cpp algorithms/SDL.h tools/Splitter.h resolve/Resolve.cpp resolve/Resolve.h algorithms/Sequential.cpp algorithms/Sequential.h)
