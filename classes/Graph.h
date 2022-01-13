@@ -6,6 +6,8 @@
 #define PARALLELGRAPHCOLORING_GRAPH_H
 
 #include "Vertex.h"
+#include "../tools/span.hpp"
+#include <set>
 
 using namespace std;
 
@@ -17,6 +19,8 @@ private:
     vector <Vertex> verticesList;
 
 public:
+
+    Graph(int num_vertices);
 
     Graph();
     //Graph(vector<Vertex> vertices);
@@ -31,6 +35,10 @@ public:
 
     int num_vertices();
 
+    void deleteGraphColors();
+
+    int assign_color(Vertex v);
+
     void addVertex(Vertex newVertex);
 
     void colorVertex(Vertex *v, int c);
@@ -38,7 +46,7 @@ public:
     void pairNeighbors(Vertex *v1, Vertex *v2);
 
     void printGraph();
-
+    
 };
 
 

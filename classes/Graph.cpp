@@ -2,11 +2,11 @@
 // Created by marta on 17/12/21.
 //
 #include <iostream>
+#include <set>
+#include <unordered_set>
 #include "Graph.h"
 
-Graph::Graph() {
-
-}
+Graph::Graph(int num_vertices) : colors(num_vertices) {}
 
 /*
 Graph(vector<Vertex> vertices){
@@ -18,7 +18,7 @@ vector<int> Graph::getColors() {
 }
 
 int Graph::getNumColors() {
-    return colors.size();
+    return unordered_set<int>(this->colors.cbegin(), this->colors.cend()).size();
 }
 
 void Graph::addColor(int newColor) {
@@ -56,4 +56,30 @@ void Graph::printGraph() {
         std::cout << ": ";
         std::cout << std::endl;
     }
+}
+
+int Graph::assign_color(Vertex v) {
+    std::set<int> neighbor_colors;
+    for (Vertex n: v.getNeighborList()) {
+        neighbor_colors.emplace(colors[n.getId()]);
+    }
+
+    int min_color = 0;
+    for (int n_color: neighbor_colors) {
+        if (min_color != n_color)
+            break;
+        else
+            min_color++;
+    }
+    colors[v.getId()] = min_color;
+    return min_color;
+}
+
+void Graph::deleteGraphColors() {
+    for (int i = 0; i < num_vertices(); i++)
+        colors[i] = 0;
+}
+
+Graph::Graph() {
+
 }

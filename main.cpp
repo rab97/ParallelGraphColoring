@@ -5,9 +5,10 @@
 #include <iostream>
 //#include <vector>
 
-//#include "classes/Vertex.h"
 #include "classes/Graph.h"
 #include "parse/Parser.h"
+#include "resolve/Resolve.h"
+#include <set>
 
 int main(int argc, char **argv) {
     std::vector <std::string> args(argv, argv + argc);
@@ -19,8 +20,23 @@ int main(int argc, char **argv) {
     Parser p(args.back());
     Graph graph = p.parse();
 
+//    graph.getVerticesList()->at(0).setColor(1);
+//    std::cout << graph.getVerticesList()->at(0).getColor();
+//
+//    for (Vertex v: graph.getVerticesList()->at(11).getNeighborList()) {
+//        std::cout << "id: " << v.getId() << "color: " << v.getColor() << std::endl;
+//    }
+
+    Resolve res(graph);
+    res.res();
+
+//    graph.printGraph();
+
+
+
+
     //print the read graph
-    graph.printGraph();
+    //graph.printGraph();
 
 //    for (int i = 1; i < N + 1; i++) {
 //
