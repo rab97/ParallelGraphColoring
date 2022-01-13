@@ -13,6 +13,14 @@ Graph(vector<Vertex> vertices){
 
 }*/
 
+void Graph::printGraph(){
+
+    int size= getVerticesList()->size();
+    for(int i=0; i<size; i++){
+        getVerticesList()->at(i).printVertex();
+    }
+}
+
 vector<int> Graph::getColors(){
     return colors;
 }
