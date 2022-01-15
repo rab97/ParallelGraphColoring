@@ -96,7 +96,7 @@ void SDL::insert_colors(const std::vector<int> &weights, int from, int to, Graph
 }
 
 std::string SDL::name() const {
-    return "SDL";
+    return "SDL (" + std::to_string(num_threads) + " threads)";
 }
 
 

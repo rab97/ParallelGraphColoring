@@ -3,14 +3,16 @@
 //
 
 #include "Resolve.h"
-#include "../algorithms/SDL.h"
 #include "../algorithms/Sequential.h"
 #include "../algorithms/SDL.h"
+#include "../algorithms/LDF.h"
 
 #include <chrono>
 
 Resolve::Resolve(Graph &g) : algorithms(
-        {new Sequential(), new SDL(1), new SDL(2), new SDL(4), new SDL(8)}), graph(g) {}
+        {new Sequential(),
+         new SDL(1), new SDL(2), new SDL(4), new SDL(8),
+         new LDF(1), new LDF(2), new LDF(4), new LDF(8)}), graph(g) {}
 
 void Resolve::res() {
     for (Algorithm *a: algorithms) {
