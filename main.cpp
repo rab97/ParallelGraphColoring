@@ -29,7 +29,6 @@ int main(int argc, char **argv) {
 
     Resolve res(graph);
     res.res();
-
 //    graph.printGraph();
 
 

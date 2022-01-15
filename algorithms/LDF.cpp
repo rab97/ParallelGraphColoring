@@ -25,10 +25,10 @@ void LDF::algorithmSolver(Graph &graph) {
     for (auto &thread: threads)
         thread.join();
 
-    std::vector <Vertex> *verticesList = graph.getVerticesList();
-    for (int vertex: remaining_vertices) {
-        graph.assign_color(verticesList->at(vertex));
-    }
+//    std::vector <Vertex> *verticesList = graph.getVerticesList();
+//    for (int vertex: remaining_vertices) {
+//        graph.assign_color(verticesList->at(vertex));
+//    }
 }
 
 void LDF::color_vertices(int from, int to, Graph &graph) {
@@ -42,13 +42,13 @@ void LDF::color_vertices(int from, int to, Graph &graph) {
 
     for (const auto &vertex: vertices) {
         int my_color = graph.assign_color(verticesList->at(vertex));
-        std::vector <Vertex> neighborsList = verticesList->at(vertex).getNeighborList();
-        for (Vertex &neighbor: neighborsList) {
-            if (my_color == neighbor.getColor()) {
-                remaining_vertices.emplace_back(vertex);
-                break;
-            }
-        }
+//        std::vector <Vertex> neighborsList = verticesList->at(vertex).getNeighborList();
+//        for (Vertex &neighbor: neighborsList) {
+//            if (my_color == neighbor.getColor()) {
+//                remaining_vertices.emplace_back(vertex);
+//                break;
+//            }
+//        }
     }
 }
 

@@ -37,7 +37,7 @@ public:
 
     void deleteGraphColors();
 
-    int assign_color(Vertex v);
+    __attribute__((unused)) int assign_color(Vertex v);
 
     void addVertex(Vertex newVertex);
 
@@ -46,7 +46,7 @@ public:
     void pairNeighbors(Vertex *v1, Vertex *v2);
 
     void printGraph();
-    
+
 };
 
 

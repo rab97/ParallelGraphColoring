@@ -34,10 +34,10 @@ void SDL::algorithmSolver(Graph &graph) {
         thread.join();
     }
 
-    std::vector <Vertex> *verticesList = graph.getVerticesList();
-    for (int vertex: remaining_vertices) {
-        graph.assign_color(verticesList->at(vertex));
-    }
+//    std::vector <Vertex> *verticesList = graph.getVerticesList();
+//    for (int vertex: remaining_vertices) {
+//        graph.assign_color(verticesList->at(vertex));
+//    }
 }
 
 void SDL::insert_weights(Graph &graph, std::vector<int> &degrees, std::vector<int> &weights, int from, int to) {
@@ -85,13 +85,13 @@ void SDL::insert_colors(const std::vector<int> &weights, int from, int to, Graph
     /* start coloring according to the order assigned above where no two neighbors have the same color */
     for (const auto &vertex_to_color: vertices_to_color) {
         int my_color = graph.assign_color(verticesList->at(vertex_to_color));
-        std::vector <Vertex> neighborsList = verticesList->at(vertex_to_color).getNeighborList();
-        for (Vertex &neighbor: neighborsList) {
-            if (my_color == neighbor.getColor()) {
-                remaining_vertices.emplace_back(vertex_to_color);
-                break;
-            }
-        }
+//        std::vector <Vertex> neighborsList = verticesList->at(vertex_to_color).getNeighborList();
+//        for (Vertex &neighbor: neighborsList) {
+//            if (my_color == neighbor.getColor()) {
+//                remaining_vertices.emplace_back(vertex_to_color);
+//                break;
+//            }
+//        }
     }
 }
 
