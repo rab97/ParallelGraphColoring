@@ -25,7 +25,7 @@ public:
     Graph();
     //Graph(vector<Vertex> vertices);
 
-    void printGraph();
+    //void printGraph();
 
     vector<int> getColors();
 

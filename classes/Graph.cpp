@@ -13,6 +13,7 @@ Graph(vector<Vertex> vertices){
 
 }*/
 
+/*
 void Graph::printGraph(){
 
     int size= getVerticesList()->size();
@@ -20,7 +21,7 @@ void Graph::printGraph(){
         getVerticesList()->at(i).printVertex();
     }
 }
-
+*/
 
 vector<int> Graph::getColors() {
     return colors;

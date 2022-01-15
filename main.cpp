@@ -22,6 +22,9 @@ int main(int argc, char **argv) {
     Parser p(args.back());
     Graph graph = p.parse();
 
+    Resolve res(graph);
+    res.res();
+
     //print the read graph
     //graph.printGraph();
 
