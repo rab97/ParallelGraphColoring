@@ -9,11 +9,8 @@
 #include "Algorithm.h"
 
 #include <iostream>
-
 #include <algorithm>
-
 #include <random>
-
 #include <numeric>
 #include <thread>
 #include <vector>

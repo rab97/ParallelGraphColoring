@@ -3,6 +3,7 @@
 //
 
 #include "Resolve.h"
+#include "../tools/Memory.h"
 #include "../algorithms/Sequential.h"
 #include "../algorithms/SDL.h"
 #include "../algorithms/LDF.h"
@@ -19,22 +20,25 @@ void Resolve::res() {
     for (Algorithm *a: algorithms) {
         struct result res = run_one(a);
         std::cout << "algorithm_name: " << a->name();
-        printf(", time_elapsed: %.2f ms, num_colors: %d \n\n",
+        printf(", time_elapsed: %.2f ms, mem_usage: %.2f kB, num_colors: %d \n\n",
                res.milliseconds,
+               res.mem_usage,
                res.num_colors);
         delete a;
     }
 }
 
 struct result Resolve::run_one(Algorithm *algorithm) {
+    Memory memory_usage;
     auto t1 = std::chrono::high_resolution_clock::now();
     algorithm->algorithmSolver(graph);
     auto t2 = std::chrono::high_resolution_clock::now();
+    float mem_usage = memory_usage.stop() / 1024;
 
     int num_colors = graph.getNumColors();
     double milliseconds = std::chrono::duration<double, std::milli>(t2 - t1).count();
     graph.deleteGraphColors();
 
-    return {num_colors, milliseconds};
+    return {num_colors, milliseconds, mem_usage};
 }
 

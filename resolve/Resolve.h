@@ -11,6 +11,7 @@
 struct result {
     int num_colors;
     double milliseconds;
+    double mem_usage;
 };
 
 class Resolve {
