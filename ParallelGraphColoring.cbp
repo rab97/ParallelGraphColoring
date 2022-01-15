@@ -69,6 +69,12 @@
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/Algorithm.h">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/LDF.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/LDF.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/ParallelColoring.h">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>
