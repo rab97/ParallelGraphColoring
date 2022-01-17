@@ -26,7 +26,7 @@ public:
 
     void is_ok();
 
-    void resolve_all();
+    void resolve_all(std::string);
 };
 
 

@@ -3,6 +3,7 @@
 //
 
 #include "Resolve.h"
+#include "../tools/OutputCsv.h"
 #include "../tools/Memory.h"
 #include "../algorithms/Sequential.h"
 #include "../algorithms/SDL.h"
@@ -16,9 +17,12 @@ Resolve::Resolve(Graph &g) : algorithms(
          new SDL(1), new SDL(2), new SDL(4), new SDL(8)
         }), graph(g) {}
 
-void Resolve::resolve_all() {
+void Resolve::resolve_all(std::string path) {
+    OutputCsv out("./outputs/" + path + ".csv");
+    out.write_header();
     for (Algorithm *a: algorithms) {
         struct result res = run_one(a);
+        out.write_line(res, a);
         std::cout << "algorithm_name: " << a->name();
         printf(", time_elapsed: %.2f ms, mem_usage: %.2f kB, num_colors: %d \n",
                res.milliseconds,
@@ -40,9 +44,5 @@ struct result Resolve::run_one(Algorithm *algorithm) {
     graph.deleteGraphColors();
 
     return {num_colors, milliseconds, mem_usage};
-}
-
-void Resolve::is_ok() {
-    std::cout << "Ok";
 }
 
