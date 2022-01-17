@@ -16,11 +16,11 @@ Resolve::Resolve(Graph &g) : algorithms(
          new SDL(1), new SDL(2), new SDL(4), new SDL(8)
         }), graph(g) {}
 
-void Resolve::res() {
+void Resolve::resolve_all() {
     for (Algorithm *a: algorithms) {
         struct result res = run_one(a);
         std::cout << "algorithm_name: " << a->name();
-        printf(", time_elapsed: %.2f ms, mem_usage: %.2f kB, num_colors: %d \n\n",
+        printf(", time_elapsed: %.2f ms, mem_usage: %.2f kB, num_colors: %d \n",
                res.milliseconds,
                res.mem_usage,
                res.num_colors);
@@ -33,12 +33,16 @@ struct result Resolve::run_one(Algorithm *algorithm) {
     auto t1 = std::chrono::high_resolution_clock::now();
     algorithm->algorithmSolver(graph);
     auto t2 = std::chrono::high_resolution_clock::now();
-    float mem_usage = memory_usage.stop() / 1024;
+    double mem_usage = memory_usage.stop() / 1024;
 
     int num_colors = graph.getNumColors();
     double milliseconds = std::chrono::duration<double, std::milli>(t2 - t1).count();
     graph.deleteGraphColors();
 
     return {num_colors, milliseconds, mem_usage};
+}
+
+void Resolve::is_ok() {
+    std::cout << "Ok";
 }
 

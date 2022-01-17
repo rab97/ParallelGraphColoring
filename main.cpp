@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
 
     Parser p(args.back());
     Graph graph = p.parse();
-    Resolve res(graph);
-    res.res();
+    Resolve resolve(graph);
+    resolve.resolve_all();
 
     return 0;
 }

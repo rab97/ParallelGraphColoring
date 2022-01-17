@@ -24,7 +24,9 @@ class Resolve {
 public:
     Resolve(Graph &);
 
-    void res();
+    void is_ok();
+
+    void resolve_all();
 };
 
 

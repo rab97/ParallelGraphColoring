@@ -16,14 +16,14 @@ Graph DimacsParser::parse() {
     std::getline(file, first_line);
     int V = std::stoul(first_line);
 
-    Graph g;
+    Graph g(V);
     for (int i = 0; i < V; i++) {
-        Vertex v(i);
+        Vertex v(i + 1);
         std::string line;
         std::getline(file, line);
         std::vector<int> neighbours = parse_numbers(line);
         for (int n: neighbours) {
-            v.addNeighbor(Vertex(n));
+            v.addNeighbor(Vertex(n + 1));
         }
         g.addVertex(v);
     }
