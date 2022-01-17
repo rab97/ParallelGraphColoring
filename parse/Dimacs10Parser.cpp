@@ -21,7 +21,7 @@ Graph Dimacs10Parser::parse() {
     }
 
     Graph g(V);
-    for (int i = 0; i < V; i++) {
+    for (int i = 1; i <= V; i++) {
         Vertex v(i);
         std::string line;
         std::getline(file, line);

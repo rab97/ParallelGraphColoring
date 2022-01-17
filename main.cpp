@@ -6,8 +6,6 @@
 //#include <vector>
 
 #include "classes/Graph.h"
-#include "algorithms/Greedy.h"
-
 #include "parse/Parser.h"
 #include "resolve/Resolve.h"
 #include <set>
@@ -22,8 +20,19 @@ int main(int argc, char **argv) {
     Parser p(args.back());
     Graph graph = p.parse();
 
+//    graph.getVerticesList()->at(0).setColor(1);
+//    std::cout << graph.getVerticesList()->at(0).getColor();
+//
+//    for (Vertex v: graph.getVerticesList()->at(11).getNeighborList()) {
+//        std::cout << "id: " << v.getId() << "color: " << v.getColor() << std::endl;
+//    }
+
     Resolve res(graph);
     res.res();
+//    graph.printGraph();
+
+
+
 
     //print the read graph
     //graph.printGraph();
@@ -49,6 +58,7 @@ int main(int argc, char **argv) {
 //    vertList->at(3).printVertex();
     return 0;
 }
+
 
 
 
