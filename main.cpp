@@ -2,117 +2,68 @@
 // Created by rab97 on 29/12/21.
 //
 
-#include <iostream>
-//#include <vector>
-
 #include "classes/Graph.h"
+
 #include "parse/Parser.h"
 #include "resolve/Resolve.h"
-#include <set>
 
 int main(int argc, char **argv) {
     std::vector <std::string> args(argv, argv + argc);
     if (args.size() < 2) {
-        throw std::runtime_error("Error number of args!");
+        std::cerr << "Usage" << std::endl << std::endl << " " << args[0] << " [--run-all] " << "<path_graph_to_run>"
+                  << std::endl << " " << args[0] << " [--run-single] " << "<path_graph_to_run" << " [options]"
+                  << std::endl << std::endl << "Run '" << args[0] << " --help' for more informations." << std::endl
+                  << std::endl;
+        return -1;
     }
 
-//    int N = 4;
-    Parser p(args.back());
-    Graph graph = p.parse();
+    bool help = std::find(args.begin(), args.end(), "--help") != args.end();
+    bool run_all = std::find(args.begin(), args.end(), "--run-all") != args.end();
+    bool run_single = std::find(args.begin(), args.end(), "--run-single") != args.end();
 
-//    graph.getVerticesList()->at(0).setColor(1);
-//    std::cout << graph.getVerticesList()->at(0).getColor();
-//
-//    for (Vertex v: graph.getVerticesList()->at(11).getNeighborList()) {
-//        std::cout << "id: " << v.getId() << "color: " << v.getColor() << std::endl;
-//    }
+    if (help) {
+        std::cout << "Usage" << std::endl << std::endl << " " << args[0] << " [--run-all] " << "<path_graph_to_run>"
+                  << std::endl << " " << args[0] << " [--run-single] " << "<path_graph_to_run" << " [options]"
+                  << std::endl << std::endl << "Options" << std::endl << " sequential\t"
+                  << "= Execute sequential algorithm\n"
+                  << " ldf\t\t" << "= Execute Largest Degree First algorithm\n" << " sdl\t\t"
+                  << "= Execute Smallest Degree Last algorithm\n";
+    } else if (run_all) {
+        if (args.size() < 3) {
+            std::cerr << "Error: <graph_to_run> not specified" << std::endl <<
+                      "Error: Run '" << args[0] << " --help' for more informations." << std::endl;
+            return -1;
+        }
+        Parser p(args.back());
+        Graph graph = p.parse();
+        Resolve resolve(graph);
+        resolve.resolve_all(args.back());
+    } else if (run_single) {
+        if (args.size() < 3) {
+            std::cerr << "Error: <graph_to_run> not specified" << std::endl <<
+                      "Error: Run '" << args[0] << " --help' for more informations." << std::endl;
+            return -1;
+        }
+        if (args.size() < 4) {
+            std::cerr << "Error: <option> not specified" << std::endl <<
+                      "Error: Run '" << args[0] << " --help' for more informations." << std::endl;
+            return -1;
+        }
+        std::string arg = args.back();
+        if (arg != "sequential" && arg != "ldf" && arg != "sdl") {
+            std::cerr << "Error: Unknown option " << args.back() << std::endl <<
+                      "Error: Run '" << args[0] << " --help' for all supported options." << std::endl;
+            return -1;
+        }
+        Parser p(args[2]);
+        Graph graph = p.parse();
+        Resolve resolve(graph, args.back());
+        resolve.resolve_all(args[2]);
+    } else {
+        std::cerr << "Error: Unknown argument " << args.back() << std::endl <<
+                  "Error: Run '" << args[0] << " --help' for more informations." << std::endl;
+        return -1;
+    }
 
-    Resolve res(graph);
-    res.res();
-//    graph.printGraph();
-
-
-
-
-    //print the read graph
-    //graph.printGraph();
-
-//    for (int i = 1; i < N + 1; i++) {
-//
-//        Vertex v(i);
-//        myGraph.addVertex(v);
-//    }
-//
-//
-//    vector <Vertex> *vertList = myGraph.getVerticesList();
-//    Vertex actualNode, nextNode;
-//
-//    for (int i = 0; i < N - 1; i++) {
-//        actualNode = vertList->at(i);
-//        nextNode = vertList->at(i + 1);
-//        myGraph.colorVertex(&actualNode, i);
-//        myGraph.pairNeighbors(&actualNode, &nextNode);
-//        actualNode.printVertex();
-//    }
-//
-//    vertList->at(3).printVertex();
     return 0;
 }
-
-
-
-
-/*
- * #include<bits/stdc++.h>
-using namespace std;
-int n,e,i,j;
-vector<vector<int> > graph;
-vector<int> color;
-bool vis[100011];
-void greedyColoring()
-{
-    color[0]  = 0;
-    for (i=1;i<n;i++)
-        color[i] = -1;
-    bool unused[n];
-    for (i=0;i<n;i++)
-        unused[i]=0;
-    for (i = 1; i < n; i++)
-    {
-        for (j=0;j<graph[i].size();j++)
-            if (color[graph[i][j]] != -1)
-                unused[color[graph[i][j]]] = true;
-        int cr;
-        for (cr=0;cr<n;cr++)
-            if (unused[cr] == false)
-                break;
-        color[i] = cr;
-        for (j=0;j<graph[i].size();j++)
-            if (color[graph[i][j]] != -1)
-                unused[color[graph[i][j]]] = false;
-    }
-}
-int main()
-{
-    int x,y;
-    cout<<"Enter number of vertices and edges respectively:";
-    cin>>n>>e;
-    cout<<"\n";
-    graph.resize(n);
-    color.resize(n);
-    memset(vis,0,sizeof(vis));
-    for(i=0;i<e;i++)
-    {
-        cout<<"\nEnter edge vertices of edge "<<i+1<<" :";
-        cin>>x>>y;
-        x--; y--;
-        graph[x].push_back(y);
-        graph[y].push_back(x);
-    }
-    greedyColoring();
-    for(i=0;i<n;i++)
-    {
-        cout<<"Vertex "<<i+1<<" is coloured "<<color[i]+1<<"\n";
-    }
-}
- * */

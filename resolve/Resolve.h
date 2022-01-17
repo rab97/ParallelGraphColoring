@@ -11,6 +11,7 @@
 struct result {
     int num_colors;
     double milliseconds;
+    double mem_usage;
 };
 
 class Resolve {
@@ -23,7 +24,11 @@ class Resolve {
 public:
     Resolve(Graph &);
 
-    void res();
+    Resolve(Graph &, std::string);
+
+    void is_ok();
+
+    void resolve_all(std::string);
 };
 
 

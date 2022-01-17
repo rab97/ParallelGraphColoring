@@ -40,3 +40,5 @@ Makefile
 ParallelGraphColoring
 .gradle
 benchmarks
+*.gra
+*.graph
