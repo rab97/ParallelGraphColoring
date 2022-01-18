@@ -130,5 +130,5 @@ void Luby::color_MIS(std::set<int> I, int color, Graph &graph){
 
 
 std::string Luby::name() const{
-    return "Luby";
+    return "Luby (" + std::to_string(num_threads) + " threads),";
 };

@@ -141,6 +141,15 @@
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/resolve/Resolve.h">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/Memory.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/Memory.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/OutputCsv.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/Splitter.h">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>

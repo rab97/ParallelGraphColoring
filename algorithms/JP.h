@@ -11,6 +11,7 @@
 #include <mutex>
 #include <time.h>
 #include <algorithm>
+#include <iostream>
 
 #include "../classes/Graph.h"
 #include "Algorithm.h"
@@ -26,13 +27,12 @@ private:
 
 public:
 
-    JP();
     JP(int num_threads);
 
     void algorithmSolver(Graph &);
 
-    void assign_randomNum_to_vertices(int from, int to, std::vector<int>& assigned_vertices, Graph graph);
-    std::set< std::set<int> > find_and_color_MIS(int from, int to, std::vector<int> assigned_vertices, Graph &graph);
+    void assign_randomNum_to_vertices(int from, int to, std::vector<int> & assigned_vertices, Graph graph);
+    void find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertices, Graph &graph);
     bool isMax_between_neighbor(Vertex v, std::vector<int>  & assigned_vertices);
 
     std::string name() const;

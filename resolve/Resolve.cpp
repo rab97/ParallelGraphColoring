@@ -15,10 +15,10 @@
 
 Resolve::Resolve(Graph &g) : algorithms(
         {new Sequential(),
-         new LDF(1), new LDF(2), new LDF(4), new LDF(8),
-         new SDL(1), new SDL(2), new SDL(4), new SDL(8),
-         new Luby(),
-         new JP(1), new JP(2), new JP(4), new JP(8)
+         //new LDF(1), new LDF(2), new LDF(4), new LDF(8),
+         //new SDL(1), new SDL(2), new SDL(4), new SDL(8),
+         //new Luby(),
+         new JP(1), new JP(2), //new JP(4), new JP(8)
         }), graph(g) {}
 
 Resolve::Resolve(Graph &g, std::string alg) : graph(g) {
@@ -56,6 +56,7 @@ void Resolve::resolve_all(std::string path) {
 
 
 struct result Resolve::run_one(Algorithm *algorithm) {
+
     Memory memory_usage;
     auto t1 = std::chrono::high_resolution_clock::now();
     algorithm->algorithmSolver(graph);
