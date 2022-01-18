@@ -17,9 +17,6 @@ void Luby::algorithmSolver(Graph &graph){
     mis= find_MIS(graph, graph.num_vertices());
 
     auto it= mis.begin();
-    int first_id= *it->begin();
-
-    //std::cout << "first_id= " << first_id << endl;
 
     int max_color= 0;
 
@@ -33,7 +30,6 @@ void Luby::algorithmSolver(Graph &graph){
         it++;
     }
 
-    std::cout << "maxColor= " << max_color << endl;
 }
 
 
