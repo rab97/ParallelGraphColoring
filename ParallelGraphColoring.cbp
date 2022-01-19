@@ -87,6 +87,12 @@
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/Luby.h">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/MIS_Sequential.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/MIS_Sequential.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/ParallelColoring.h">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>

@@ -11,8 +11,7 @@ JP::JP(int num_threads) : num_threads(num_threads) {}
 void JP::algorithmSolver(Graph & graph){
 
     int num_vertices= graph.num_vertices();
-
-    std::vector<int> assigned_vertices(num_vertices+1, 0);
+    vector<int> assigned_vertices(num_vertices+1, 0);
 
     std::cout << "num_threads= " << num_threads << endl;
     if (num_threads > std::thread::hardware_concurrency())
@@ -33,6 +32,7 @@ void JP::algorithmSolver(Graph & graph){
     }
 
     for (auto &thread: threads) {
+
         thread.join();
     }
 
@@ -63,8 +63,6 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
     }
 
     int cur_node_id;
-    int actual_color= 0;
-    int while_num=0;
 
     while(!nodes_remain.empty()){
 
@@ -79,19 +77,14 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
                 if(isMax){
                     //vertex coloring
                     color_mutex.lock();
-                    actual_color= graph.assign_color(verticesList->at(j));
-                    //std::cout << "actual_color=" << actual_color << endl;
+                    graph.assign_color(verticesList->at(j));
                     assigned_vertices.at(cur_node_id)= 0;       //the next iteration it won't be the max
                     color_mutex.unlock();
-                    //remove it from nodes_remain
-                    /*
-                    if(num_remain==1){
-                        break;
-                    }*/
-                    num_remain --;
-                    //std::cout << "nodes_remain= " << num_remain << endl;
-                    nodes_remain.erase(cur_node_id);
 
+                    //remove it from nodes_remain
+                    num_remain --;
+                    nodes_remain.erase(cur_node_id);
+                    //std::cout << "nodes_remain= " << num_remain << endl;
                     //std:: cout << "Colored node cur_node_id= " << cur_node_id << endl;
 
                 }
@@ -99,8 +92,7 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
             }
 
         }
-        while_num++;
-        //std::cout << "while_num= " << while_num << endl;
+
     }
 
 
@@ -111,12 +103,7 @@ bool JP::isMax_between_neighbor(Vertex v, std::vector<int>  &assigned_vertices) 
 
     std::vector<Vertex> neighbor = v.getNeighborList();
     int value= assigned_vertices[v.getId()];
-    //std:: cout << "error here?" << endl;
     int neighbor_id;
-
-    //std::cout << "neighbor_size= " << neighbor.size() <<endl;
-    //std::cout << "assigned_vertices.size= " << assigned_vertices.size() <<endl;
-
 
     for(int i=0; i<neighbor.size(); i++){
 
@@ -136,7 +123,6 @@ bool JP::isMax_between_neighbor(Vertex v, std::vector<int>  &assigned_vertices) 
     }
     //if we're at this point, we've not found a neighbor
     // with a major rand value
-    //std:: cout << "vertex " << v.getId() << "isMax. RandomNum= " << value << endl;
     return true;
 }
 
