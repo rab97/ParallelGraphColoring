@@ -22,6 +22,7 @@ void Luby::algorithmSolver(Graph &graph) {
     std::set<int> I;
 
     int num_vertices = graph.num_vertices();
+    int max_color= 0;
 
     int num_remain= graph.num_vertices();
     std::set<int> nodes_remain;
@@ -44,11 +45,11 @@ void Luby::algorithmSolver(Graph &graph) {
 
     //Part 1 : assign all vertices a random permutation and then find all MIS in the graph
     for (int i = 0; i < num_threads; i++) {
-        threads.emplace_back(std::thread([&graph, &mis, &I, &assigned_vertices, this, s, i]() {
+        threads.emplace_back(std::thread([&graph, &mis, &I, &assigned_vertices, &max_color,this, s, i]() {
             int from = s.get_min(i), to = s.get_max(i);
 
             assign_num_to_vertices(from, to, assigned_vertices, graph);
-            mis= find_MIS_Parallel(from, to, mis, I, assigned_vertices, graph);
+            mis= find_MIS_Parallel(from, to, max_color,mis, I, assigned_vertices, graph);
             //mis= find_MIS_Sequential(from, to, mis, I, assigned_vertices, nodes_remain, num_remain, graph, graph.num_vertices());
 
         }));
@@ -59,27 +60,14 @@ void Luby::algorithmSolver(Graph &graph) {
     }
 
 
-    //Part 2 : color each MIS
-    auto it = mis.begin();
-    int max_color = 0;
-
-    while (it != mis.end()) {
-
-        //std:cout << "maxColor= " << max_color << endl;
-        graph.addColor(max_color);
-
-        color_MIS(*it, max_color, graph);
-
-        max_color++;
-        it++;
-    }
-
-
-
 }
 
 
-std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std::set<int>> &mis, std::set<int> &I,
+
+
+
+
+std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, int &max_color,std::set <std::set<int>> &mis, std::set<int> &I,
                                                  vector<int> &assigned_vertices, Graph &graph) {
 
     int num_remain = to - from;
@@ -96,6 +84,7 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
 
     while (!nodes_remain.empty()) {
 
+        std::cout << "RANGE [" <<from << ", " << to << "] ---> num_remain= " <<  nodes_remain.size() <<endl;
         for (int j = from; j < to; j++) {
 
             cur_node_id=  verticesList->at(j).getId();
@@ -104,13 +93,14 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
 
                 bool isMax= isMax_between_neighbor(verticesList->at(j), assigned_vertices);
                 if(isMax){
-                    //vertex is inserted into the indipendent set
+                    //vertex is colored and inserted into the indipendent set
                     I_mutex.lock();
                     I.insert(cur_node_id);
+                    graph.colorVertex(&verticesList->at(j), max_color);
                     assigned_vertices.at(cur_node_id)= -1;       //the next iteration it won't be the max
                     I_mutex.unlock();
 
-                    //remove neighbors from nodes_remain if they belongs to the interval [from, to)
+                    //remove neighbors from nodes_remain if they belong to the interval [from, to)
                     neighborList = verticesList->at(j).getNeighborList();
                     int neighbor_id;
                     for (int k = 0; k < neighborList.size(); k++) { //for each neighbor of that node
@@ -131,9 +121,10 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
                     nodes_remain.erase(cur_node_id);
                     //std::cout << "num_remain= " << num_remain << " nodes_remain.size()" << nodes_remain.size()<< endl;
 
-                    std::cout << "neighbor_size= " << neighbors.size() << endl;
                     //std:: cout << "Colored node cur_node_id= " << cur_node_id << endl;
 
+                }else{
+                    neighbors.insert(cur_node_id);
                 }
 
             }
@@ -149,6 +140,9 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
             //Insertion of indipendent set into mis
             std::cout << "A MIS is found" << endl;
             mis.insert(I);
+            max_color++;
+            graph.addColor(max_color);
+            std::cout << "max_color=" << max_color<< endl;
             I.clear();
 
             semMIS = num_threads;
@@ -160,10 +154,27 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
             mis_cond_var.wait(lock);
         }
 
+        std::cout << "RANGE [" <<from << ", " << to << "] ---> num_remain2= " <<  nodes_remain.size() << "     neighbor_size= " << neighbors.size()<< endl;
+
+        if(num_remain< 5){
+
+            auto it = nodes_remain.begin();
+            while(it!= nodes_remain.end()){
+                std::cout << "remain_vertex_id= " << *it << endl;
+                it++;
+            }
+        }
+        if(neighbors.size()<5){
+
+            auto it= neighbors.begin();
+            while(it!= neighbors.end()){
+                std::cout << "remain_neighbor_id= " << *it << endl;
+                it++;
+            }
+        }
         num_remain = neighbors.size();
         nodes_remain = neighbors;
         neighbors.clear();
-        std::cout << "num_remain2= " << num_remain << " nodes_remain2.size()" << nodes_remain.size()<< endl;
 
     }
 
