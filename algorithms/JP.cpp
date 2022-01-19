@@ -13,7 +13,6 @@ void JP::algorithmSolver(Graph & graph){
     int num_vertices= graph.num_vertices();
     vector<int> assigned_vertices(num_vertices+1, 0);
 
-    std::cout << "num_threads= " << num_threads << endl;
     if (num_threads > std::thread::hardware_concurrency())
         throw std::runtime_error("Hardware concurrency exceeded: please use at most " +
                                  std::to_string(std::thread::hardware_concurrency()) + " threads");
@@ -58,7 +57,7 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
     std::set<int> nodes_remain;
     std::vector <Vertex> *verticesList = graph.getVerticesList();
 
-    for(int i=0; i< num_remain; i++) {
+    for(int i=from; i< to; i++) {
         nodes_remain.insert(verticesList->at(i).getId());
     }
 
@@ -69,7 +68,6 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
         for(int j=from; j<to; j++){
 
             cur_node_id=  verticesList->at(j).getId();
-            //std:: cout << "cur_node_id= " << cur_node_id << endl;
 
             if(nodes_remain.find(cur_node_id) != nodes_remain.end()){
 
@@ -84,7 +82,7 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
                     //remove it from nodes_remain
                     num_remain --;
                     nodes_remain.erase(cur_node_id);
-                    //std::cout << "nodes_remain= " << num_remain << endl;
+                    //std::cout << "num_remain= " << num_remain << " nodes_remain.size()" << nodes_remain.size()<< endl;
                     //std:: cout << "Colored node cur_node_id= " << cur_node_id << endl;
 
                 }
@@ -92,6 +90,9 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
             }
 
         }
+
+        std::cout << "num_remain2= " << num_remain << " nodes_remain2.size()" << nodes_remain.size()<< endl;
+
 
     }
 

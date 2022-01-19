@@ -1,6 +1,7 @@
 //
 // Created by marta on 18/01/22.
 //
+#include <iostream>
 
 #include "MIS_Sequential.h"
 
@@ -50,12 +51,14 @@ std::set< std::set<int>> MIS_Sequential::find_MIS_Sequential(Graph temporaryGrap
 
             std::vector <Vertex> neighborList;
 
+
             for(int i=0; i<num_nodes; i++){ //take the neighbor list of the considered cur_node
                 if(verticesList->at(i).getId()==cur_node_id){
                     neighborList= verticesList->at(i).getNeighborList();
                     break;
                 }
             }
+
 
             for(auto & j : neighborList){ //for each neighbor of that node
                 // removing current node's neighbors (but only if they're still in nodes_remain)
