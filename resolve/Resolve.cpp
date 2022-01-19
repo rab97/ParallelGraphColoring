@@ -16,11 +16,11 @@
 
 Resolve::Resolve(Graph &g) : algorithms(
         {new Sequential(),
-         //new LDF(1), new LDF(2), new LDF(4), new LDF(8),
-         //new SDL(1), new SDL(2), new SDL(4), new SDL(8),
-         new Luby(1), new Luby(2),
-         //new MIS_Sequential(),
-         //new JP(1), new JP(2), //new JP(4), new JP(8)
+         new MIS_Sequential(),
+         new LDF(1), new LDF(2), new LDF(4), new LDF(8),
+         new SDL(1), new SDL(2), new SDL(4), new SDL(8),
+         new Luby(1), new Luby(2), new Luby(4), new Luby(8)
+                //new JP(1), new JP(2), //new JP(4), new JP(8)
 
         }), graph(g) {}
 
@@ -37,6 +37,18 @@ Resolve::Resolve(Graph &g, std::string alg) : graph(g) {
         algorithms.emplace_back(new SDL(2));
         algorithms.emplace_back(new SDL(4));
         algorithms.emplace_back(new SDL(8));
+    } else if (alg == "mis") {
+        algorithms.emplace_back(new MIS_Sequential());
+    } else if (alg == "jp") {
+        algorithms.emplace_back(new JP(1));
+        algorithms.emplace_back(new JP(2));
+        algorithms.emplace_back(new JP(4));
+        algorithms.emplace_back(new JP(8));
+    } else if (alg == "luby") {
+        algorithms.emplace_back(new Luby(1));
+        algorithms.emplace_back(new Luby(2));
+        algorithms.emplace_back(new Luby(4));
+        algorithms.emplace_back(new Luby(8));
     }
 }
 
