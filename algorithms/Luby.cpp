@@ -80,6 +80,7 @@ std::set<std::set<int> > Luby::find_MIS_Parallel(int from, int to, int &max_colo
 
     while(!nodes_remain.empty()){
 
+        std::cout << "RANGE [" <<from << ", " << to << "] ---> num_remain= " <<  nodes_remain.size() <<endl;
         for(int j=from; j<to; j++){
 
             cur_node_id=  verticesList->at(j).getId();
@@ -118,6 +119,8 @@ std::set<std::set<int> > Luby::find_MIS_Parallel(int from, int to, int &max_colo
 
                     //std:: cout << "Colored node cur_node_id= " << cur_node_id << endl;
 
+                }else{
+                    neighbors.insert(cur_node_id);
                 }
 
             }
@@ -147,9 +150,24 @@ std::set<std::set<int> > Luby::find_MIS_Parallel(int from, int to, int &max_colo
             mis_cond_var.wait(lock);
         }
 
-        std::cout << "num_remain2= " << num_remain << " nodes_remain2.size()" << nodes_remain.size()<< endl;
+        std::cout << "RANGE [" <<from << ", " << to << "] ---> num_remain2= " <<  nodes_remain.size() << "     neighbor_size= " << neighbors.size()<< endl;
 
-        std::cout << "neighbor_size= " << neighbors.size() << endl;
+        if(num_remain< 5){
+
+            auto it = nodes_remain.begin();
+            while(it!= nodes_remain.end()){
+                std::cout << "remain_vertex_id= " << *it << endl;
+                it++;
+            }
+        }
+        if(neighbors.size()<5){
+
+            auto it= neighbors.begin();
+            while(it!= neighbors.end()){
+                std::cout << "remain_neighbor_id= " << *it << endl;
+                it++;
+            }
+        }
         num_remain = neighbors.size();
         nodes_remain = neighbors;
         neighbors.clear();
