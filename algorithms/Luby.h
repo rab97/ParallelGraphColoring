@@ -29,7 +29,7 @@ public:
     Luby(int num_threads);
 
     void algorithmSolver(Graph &);
-    std::set< std::set<int> > find_MIS_Parallel(int from, int to, std::set<std::set<int>> &mis, std::set<int>  &I, vector<int> &assigned_vertices,Graph &graph);
+    std::set< std::set<int> > find_MIS_Parallel(int from, int to, int &max_color,std::set<std::set<int>> &mis, std::set<int>  &I, vector<int> &assigned_vertices,Graph &graph);
     std::set< std::set<int>> find_MIS_Sequential(int from, int to,  std::set<std::set<int>> &mis, std::set<int> &I, vector<int> &assigned_vertices, std::set<int> nodes_remain, int num_remain,Graph temporaryGraph, int num_nodes);
     void assign_num_to_vertices(int from, int to, std::vector<int> & assigned_vertices, Graph &graph);
     void color_MIS(std::set<int> I, int color, Graph &graph);
