@@ -6,7 +6,7 @@
 #include <iostream>
 #include <condition_variable>
 
-mutex I_mutex;
+mutex I_mutex, remainingNode_mutex;
 mutex mutex_color;
 condition_variable mis_cond_var;
 int semMIS;
@@ -22,8 +22,18 @@ void Luby::algorithmSolver(Graph &graph) {
     std::set<int> I;
 
     int num_vertices = graph.num_vertices();
-    vector<int> assigned_vertices(num_vertices + 1, 0);
-    semMIS = num_threads;
+
+    int num_remain= graph.num_vertices();
+    std::set<int> nodes_remain;
+    std::vector <Vertex> *verticesList = graph.getVerticesList();
+    for(int i=0; i< num_remain; i++) {
+        nodes_remain.insert(verticesList->at(i).getId());
+    }
+
+
+
+    vector<int> assigned_vertices(num_vertices+1, 0);
+    semMIS= num_threads;
 
     if (num_threads > std::thread::hardware_concurrency())
         throw std::runtime_error("Hardware concurrency exceeded: please use at most " +
@@ -38,7 +48,9 @@ void Luby::algorithmSolver(Graph &graph) {
             int from = s.get_min(i), to = s.get_max(i);
 
             assign_num_to_vertices(from, to, assigned_vertices, graph);
-            mis = find_MIS_Parallel(from, to, mis, I, assigned_vertices, graph);
+            mis= find_MIS_Parallel(from, to, mis, I, assigned_vertices, graph);
+            //mis= find_MIS_Sequential(from, to, mis, I, assigned_vertices, nodes_remain, num_remain, graph, graph.num_vertices());
+
         }));
     }
 
@@ -63,6 +75,7 @@ void Luby::algorithmSolver(Graph &graph) {
     }
 
 
+
 }
 
 
@@ -74,7 +87,7 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
     std::set<int> neighbors;
     std::vector <Vertex> *verticesList = graph.getVerticesList();
 
-    for (int i = from; i < to; i++) {
+    for(int i=from; i< to; i++) {
         nodes_remain.insert(verticesList->at(i).getId());
     }
 
@@ -85,18 +98,16 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
 
         for (int j = from; j < to; j++) {
 
-            cur_node_id = verticesList->at(j).getId();
-            //std:: cout << "cur_node_id= " << cur_node_id << endl;
+            cur_node_id=  verticesList->at(j).getId();
 
             if (nodes_remain.find(cur_node_id) != nodes_remain.end()) {
 
-                bool isMax = isMax_between_neighbor(verticesList->at(j), assigned_vertices);
-                if (isMax) {
-                    //vertex is inserted into the set
+                bool isMax= isMax_between_neighbor(verticesList->at(j), assigned_vertices);
+                if(isMax){
+                    //vertex is inserted into the indipendent set
                     I_mutex.lock();
                     I.insert(cur_node_id);
-                    assigned_vertices.at(cur_node_id) = -1;       //the next iteration it won't be the max
-                    //std::cout << "inserted node: " << cur_node_id<< endl;
+                    assigned_vertices.at(cur_node_id)= -1;       //the next iteration it won't be the max
                     I_mutex.unlock();
 
                     //remove neighbors from nodes_remain if they belongs to the interval [from, to)
@@ -118,7 +129,9 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
                     //remove cur_node_id from nodes_remain
                     num_remain--;
                     nodes_remain.erase(cur_node_id);
-                    //std::cout << "nodes_remain= " << num_remain << endl;
+                    //std::cout << "num_remain= " << num_remain << " nodes_remain.size()" << nodes_remain.size()<< endl;
+
+                    std::cout << "neighbor_size= " << neighbors.size() << endl;
                     //std:: cout << "Colored node cur_node_id= " << cur_node_id << endl;
 
                 }
@@ -150,7 +163,99 @@ std::set <std::set<int>> Luby::find_MIS_Parallel(int from, int to, std::set <std
         num_remain = neighbors.size();
         nodes_remain = neighbors;
         neighbors.clear();
+        std::cout << "num_remain2= " << num_remain << " nodes_remain2.size()" << nodes_remain.size()<< endl;
 
+    }
+
+    return mis;
+}
+
+
+
+
+
+
+std::set< std::set<int>> Luby::find_MIS_Sequential(int from, int to,  std::set<std::set<int>> &mis, std::set<int> &I, vector<int> &assigned_vertices, std::set<int> nodes_remain, int num_remain,Graph temporaryGraph, int num_nodes){
+
+    std::vector <Vertex> *verticesList = temporaryGraph.getVerticesList();
+
+    //for the first iteration we choose the very first node
+    int cur_node_id= verticesList->at(from).getId();
+    I.insert(cur_node_id);
+
+    while (!nodes_remain.empty()){
+
+        std::cout <<"nodes_remain.size()= " << nodes_remain.size() << endl;
+
+        while (num_remain > 0){
+
+            std::vector <Vertex> neighborList;
+            bool isMax;
+            for(int i=from; i<to; i++){ //take the neighbor list of the considered cur_node
+                if(verticesList->at(i).getId()==cur_node_id){
+                    neighborList= verticesList->at(i).getNeighborList();
+                    isMax= isMax_between_neighbor(verticesList->at(i), assigned_vertices);
+                    break;
+                }
+            }
+
+
+            if (isMax) {
+                //vertex is inserted into the set
+                I_mutex.lock();
+                I.insert(cur_node_id);
+                assigned_vertices.at(cur_node_id) = -1;       //the next iteration it won't be the max
+                I_mutex.unlock();
+
+                remainingNode_mutex.lock();
+                for (auto &j : neighborList) { //for each neighbor of that node
+                    // removing current node's neighbors (but only if they're still in nodes_remain)
+                    if (nodes_remain.find(j.getId()) != nodes_remain.end()) {
+                        num_remain--;
+                        nodes_remain.erase(j.getId());
+                    }
+                }
+
+                // remove current node
+                nodes_remain.erase(cur_node_id);
+                num_remain--;
+                // choose the first element as new current node
+                if (!nodes_remain.empty()) {
+                    cur_node_id = *(nodes_remain.begin());
+                }
+                remainingNode_mutex.unlock();
+
+            }
+
+        }
+
+        //at this point a MIS is found
+        std::unique_lock<std::mutex> lk(I_mutex);
+        semMIS--;
+
+        if(semMIS==0){
+            //Insertion of indipendent set into mis
+            //std::cout<< "semMis1= " << semMIS << endl;
+            mis.insert(I);
+            I.clear();
+
+            semMIS= num_threads;
+            mis_cond_var.notify_all();
+
+        } else{
+
+            //std::cout<< "semMis2= " << semMIS << endl;
+            //std::cout << "Un thread in attesa" << endl;
+            mis_cond_var.wait(lk);
+        }
+
+        std::cout<< "numremain4= " << num_remain << ",  nodes_remain.empty()= " << nodes_remain.empty() << endl;
+
+
+        if(!nodes_remain.empty()){
+            cur_node_id = *(nodes_remain.begin());
+            I.insert(cur_node_id);
+        }
 
     }
 
