@@ -3,6 +3,9 @@
 //
 #include "Luby.h"
 #include <condition_variable>
+#include <numeric>
+#include <algorithm>
+
 
 mutex I_mutex, remainingNode_mutex;
 mutex mutex_color;
@@ -11,7 +14,7 @@ int semMIS;
 
 Luby::Luby() {}
 
-Luby::Luby(int num_threads) : num_threads(num_threads) {}
+Luby::Luby(int num_threads) : num_threads(num_threads), random(123) {}
 
 
 void Luby::algorithmSolver(Graph &graph) {
@@ -32,8 +35,10 @@ void Luby::algorithmSolver(Graph &graph) {
     }
 
 
-    vector<int> assigned_vertices(num_vertices, 0);
+    vector<int> assigned_vertices(num_vertices);
     semMIS = num_threads;
+    std::iota(assigned_vertices.begin(), assigned_vertices.end(), 0);
+    std::shuffle(assigned_vertices.begin(), assigned_vertices.end(), random);
 
     if (num_threads > std::thread::hardware_concurrency())
         throw std::runtime_error("Hardware concurrency exceeded: please use at most " +
@@ -47,18 +52,12 @@ void Luby::algorithmSolver(Graph &graph) {
         threads.emplace_back(
                 std::thread([&graph, &mis, &I, &assigned_vertices, &max_color, &running_threads, this, s, i]() {
                     int from = s.get_min(i), to = s.get_max(i);
-
-                    assign_num_to_vertices(from, to, assigned_vertices, graph);
                     find_MIS_Parallel(from, to, max_color, running_threads, mis, I, assigned_vertices, graph);
-
                 }));
     }
-
     for (auto &thread: threads) {
         thread.join();
     }
-
-
 /*
     auto it= mis.begin();
 
@@ -180,7 +179,6 @@ void Luby::find_MIS_Parallel(int from, int to, int &max_color, int &running_thre
             mis.insert(I);
             graph.addColor(max_color);
             max_color++;
-
             I.clear();
             if (num_remain == 0) {
                 running_threads--;
@@ -204,15 +202,6 @@ void Luby::find_MIS_Parallel(int from, int to, int &max_color, int &running_thre
 
 
 void Luby::assign_num_to_vertices(int from, int to, std::vector<int> &assigned_vertices, Graph &graph) {
-
-    //permutation of id numbers
-    srand(time(0));
-    //std::shuffle(vertices.begin(), vertices.end(), 123);
-
-    for (int i = from; i < to; i++) {
-        //assigned_vertices[i]= vertices.at(i).getId();
-        assigned_vertices[i] = rand();
-    }
 }
 
 bool Luby::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices) {

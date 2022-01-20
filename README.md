@@ -1,10 +1,14 @@
 # ParallelGraphColoring
 
-ParallelGraphColoring is a project focused on the implementation and analysis pf sequential and parallel algorithms used to color graphs.
+ParallelGraphColoring is a project focused on the implementation and analysis pf sequential and parallel algorithms used
+to color graphs.
+
+The project was built on Linux machine and it is supposed to run only in this environment.
 
 In the following section there is a short user guide useful to build and run the program correctly.
 
-### Build and Run
+### Build and Run (On Linux)
+
 Project can br built with `make`:
 
 ```
@@ -23,6 +27,7 @@ ParallelGraphColoring [--run-all || --run-single] <graph_path> [options]
 `--run-single`   -> executes one single algorithms speciified in the 'options' field for the specific graph
 
 The `[options]` available are:
+
 * `sequential` -> executes Sequential algorithm
 * `ldf`-> executes Largest-Degree-First algorithm
 * `sdl` -> executes Smallest-Degree-Last algorithm
@@ -30,6 +35,7 @@ The `[options]` available are:
 * `luby` -> executes Luby algorithm
 
 A help menu is also available for the user, showing what explained before:
+
 ```
 ParallelGraphColoring --help
 ```
