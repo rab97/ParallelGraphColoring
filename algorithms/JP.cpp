@@ -91,8 +91,6 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertic
 
         }
 
-        std::cout << "num_remain2= " << num_remain << " nodes_remain2.size()" << nodes_remain.size()<< endl;
-
 
     }
 
