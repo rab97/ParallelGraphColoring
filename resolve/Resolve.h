@@ -26,8 +26,6 @@ public:
 
     Resolve(Graph &, std::string);
 
-    void is_ok();
-
     void resolve_all(std::string);
 };
 

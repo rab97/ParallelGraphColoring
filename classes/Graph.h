@@ -45,11 +45,11 @@ public:
 
     void colorVertex(Vertex *v, int c);
 
+
     void pairNeighbors(Vertex *v1, Vertex *v2);
 
     void printGraph();
 
 };
-
 
 #endif //PARALLELGRAPHCOLORING_GRAPH_H
