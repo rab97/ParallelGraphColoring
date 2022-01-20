@@ -24,18 +24,16 @@ void Luby::algorithmSolver(Graph &graph) {
 
     int num_vertices = graph.num_vertices();
     int max_color = 0;
-    //graph.addColor(max_color);
     int running_threads = num_threads;
 
-    int num_remain = graph.num_vertices();
-    std::set<int> nodes_remain;
     std::vector <Vertex> *verticesList = graph.getVerticesList();
-    for (int i = 0; i < num_remain; i++) {
-        nodes_remain.insert(i);
-    }
+
 
 
     vector<int> assigned_vertices(num_vertices);
+    for(int i=0; i< num_vertices; i++) {
+        assigned_vertices.at(i)= (verticesList->at(i).getId());
+    }
     semMIS = num_threads;
     std::iota(assigned_vertices.begin(), assigned_vertices.end(), 0);
     std::shuffle(assigned_vertices.begin(), assigned_vertices.end(), random);
@@ -52,59 +50,13 @@ void Luby::algorithmSolver(Graph &graph) {
         threads.emplace_back(
                 std::thread([&graph, &mis, &I, &assigned_vertices, &max_color, &running_threads, this, s, i]() {
                     int from = s.get_min(i), to = s.get_max(i);
-                    find_MIS_Parallel(from, to, max_color, running_threads, mis, I, assigned_vertices, graph);
-                }));
+            find_MIS_Parallel(from, to, max_color, running_threads,mis, I, assigned_vertices, graph);
+
+        }));
     }
     for (auto &thread: threads) {
         thread.join();
     }
-/*
-    auto it= mis.begin();
-
-    while(it!=mis.end()) {
-
-        for (int i = 0; i < num_threads; i++) {
-            threads.emplace_back(
-                    std::thread([&graph, &mis, &I, &assigned_vertices, &max_color, &running_threads, this, s, i]() {
-                        int from = s.get_min(i), to = s.get_max(i);
-
-
-                    }));
-            std::cout << "arrivo qui3?" << endl;
-        }
-
-
-        it++;
-
-    }
-    /*
-    std::cout << "arrivo qui?3" << endl;
-
-    auto it= mis.begin();
-
-    while(it!=mis.end()){
-
-        std::cout << "dentro il while" << endl;
-
-        threads.emplace_back(std::thread([&graph, &mis, &it, &max_color,this]() {
-
-            max_color++;
-            std::cout << "maxColor" << max_color<< endl;
-            graph.addColor(max_color);
-
-            color_MIS(*it, max_color, graph);
-
-        }));
-
-        it++;
-
-    }*/
-
-
-
-
-
-
 }
 
 
@@ -201,8 +153,6 @@ void Luby::find_MIS_Parallel(int from, int to, int &max_color, int &running_thre
 }
 
 
-void Luby::assign_num_to_vertices(int from, int to, std::vector<int> &assigned_vertices, Graph &graph) {
-}
 
 bool Luby::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices) {
 
@@ -230,30 +180,7 @@ bool Luby::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices)
     return true;
 }
 
-//This function colors all the vertex in the set I with the same color,
-//finding them in the graph
-void Luby::color_MIS(std::set<int> I, int color, Graph &graph) {
 
-    int vert_id;
-    std::vector <Vertex> *verticesList = graph.getVerticesList();
-
-    while (!I.empty()) {
-
-        vert_id = *I.begin();
-
-        for (int i = 0; i < graph.num_vertices(); i++) {
-
-            if (verticesList->at(i).getId() == vert_id) {
-                //vertex coloring
-                graph.colorVertex(&verticesList->at(i), color);
-                break;
-            }
-        }
-
-        I.erase(vert_id);
-    }
-
-}
 
 
 std::string Luby::name() const {

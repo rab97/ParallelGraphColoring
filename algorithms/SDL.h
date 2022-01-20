@@ -19,7 +19,6 @@
 class SDL : public Algorithm {
     int num_threads;
 
-    std::vector<int> remaining_vertices;
 public:
     SDL(int num_threads);
 
