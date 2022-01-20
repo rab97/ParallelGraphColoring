@@ -14,9 +14,10 @@ Vertex::Vertex(int _id, int _color, vector <Vertex> _neighbors) {
     neighbors = _neighbors;
 }
 
-Vertex::Vertex(int _id) {
-    id = _id;
-    //default initialization for vector and color is empty
+Vertex::Vertex(int _id){
+    id= _id;
+    color= -1;
+    //default initialization for vector is empty
 }
 
 void Vertex::printVertex() {

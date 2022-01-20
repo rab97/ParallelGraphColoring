@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="ParallelGraphColoring"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/marta/CLionProjects/ParallelGraphColoring"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/marta/CLionProjects/ParallelGraphColoring"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ParallelGraphColoring">
+				<Option output="/home/marta/CLionProjects/ParallelGraphColoring/ParallelGraphColoring" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/marta/CLionProjects/ParallelGraphColoring"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 ParallelGraphColoring"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ParallelGraphColoring/fast">
+				<Option output="/home/marta/CLionProjects/ParallelGraphColoring/ParallelGraphColoring" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/marta/CLionProjects/ParallelGraphColoring"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 ParallelGraphColoring/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/marta/CLionProjects/ParallelGraphColoring"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/marta/CLionProjects/ParallelGraphColoring/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/Algorithm.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/JP.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/JP.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/LDF.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/LDF.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/Luby.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/Luby.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/MIS_Sequential.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/MIS_Sequential.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/ParallelColoring.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/SDL.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/SDL.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/Sequential.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/Sequential.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/classes/Graph.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/classes/Graph.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/classes/Vertex.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/classes/Vertex.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/main.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/parse/Dimacs10Parser.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/parse/Dimacs10Parser.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/parse/DimacsParser.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/parse/DimacsParser.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/parse/Parser.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/parse/Parser.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/resolve/Resolve.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/resolve/Resolve.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/Memory.cpp">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/Memory.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/OutputCsv.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/tools/Splitter.h">
+			<Option target="ParallelGraphColoring"/>
+		</Unit>
+		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

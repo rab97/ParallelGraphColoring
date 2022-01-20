@@ -5,7 +5,7 @@
 #include "Parser.h"
 #include "Dimacs10Parser.h"
 #include "DimacsParser.h"
-#include <filesystem>
+#include <experimental/filesystem>
 
 Parser::Parser(const std::string &fname) {
     std::ifstream file(fname);
@@ -13,7 +13,7 @@ Parser::Parser(const std::string &fname) {
         throw std::runtime_error("Error opening " + fname + " file!");
     }
 
-    auto path = std::filesystem::path(fname);
+    auto path = std::experimental::filesystem::path(fname);
 
     if (path.extension() == ".graph") {
         parser = new Dimacs10Parser(file);
