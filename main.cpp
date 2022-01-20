@@ -27,7 +27,10 @@ int main(int argc, char **argv) {
                   << std::endl << std::endl << "Options" << std::endl << " sequential\t"
                   << "= Execute sequential algorithm\n"
                   << " ldf\t\t" << "= Execute Largest Degree First algorithm\n" << " sdl\t\t"
-                  << "= Execute Smallest Degree Last algorithm\n";
+                  << "= Execute Smallest Degree Last algorithm\n"
+                  << " mis\t\t" << "= Execute Maximal Indipendent Set algorithm\n"
+                  << " luby\t\t" << "= Execute Luby algorithm\n"
+                  << " jp\t\t" << "= Execute Jones-Plassmann algorithm\n";
     } else if (run_all) {
         if (args.size() < 3) {
             std::cerr << "Error: <graph_to_run> not specified" << std::endl <<
@@ -50,7 +53,7 @@ int main(int argc, char **argv) {
             return -1;
         }
         std::string arg = args.back();
-        if (arg != "sequential" && arg != "ldf" && arg != "sdl") {
+        if (arg != "sequential" && arg != "ldf" && arg != "sdl" && arg != "mis" && arg != "luby" && arg != "jp") {
             std::cerr << "Error: Unknown option " << args.back() << std::endl <<
                       "Error: Run '" << args[0] << " --help' for all supported options." << std::endl;
             return -1;
