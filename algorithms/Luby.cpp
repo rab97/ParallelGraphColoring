@@ -28,8 +28,6 @@ void Luby::algorithmSolver(Graph &graph) {
 
     std::vector <Vertex> *verticesList = graph.getVerticesList();
 
-
-
     vector<int> assigned_vertices(num_vertices);
     for(int i=0; i< num_vertices; i++) {
         assigned_vertices.at(i)= (verticesList->at(i).getId());
@@ -90,7 +88,7 @@ void Luby::find_MIS_Parallel(int from, int to, int &max_color, int &running_thre
                     //vertex is colored and inserted into the indipendent set
                     I_mutex.lock();
                     I.insert(cur_node_id);
-                    //graph.colorVertex(&verticesList->at(j), max_color);
+                    graph.colorVertex(&verticesList->at(j), max_color);
                     assigned_vertices[cur_node_id] = -1;       //the next iteration it won't be the max
                     I_mutex.unlock();
 

@@ -30,7 +30,7 @@ public:
 
     void algorithmSolver(Graph &);
 
-    void assign_randomNum_to_vertices(int from, int to, std::vector<int> & assigned_vertices, Graph graph);
+    void assign_randomNum_to_vertices(int from, int to, std::vector<int> & assigned_vertices);
     void find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertices, Graph &graph);
     bool isMax_between_neighbor(Vertex v, std::vector<int>  & assigned_vertices);
 

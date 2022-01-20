@@ -93,9 +93,6 @@
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/MIS_Sequential.h">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>
-		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/ParallelColoring.h">
-			<Option target="ParallelGraphColoring"/>
-		</Unit>
 		<Unit filename="/home/marta/CLionProjects/ParallelGraphColoring/algorithms/SDL.cpp">
 			<Option target="ParallelGraphColoring"/>
 		</Unit>

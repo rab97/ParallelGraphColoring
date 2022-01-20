@@ -30,8 +30,10 @@ color set". The nature of the coloring problem depends on the number of colors b
 
 ### Graph
 The graph is implemented by means of two classes: Graph and Vertex.
-Each Vertex has as properties an id, a color and a vector of other vertex, containing its neighbors.
-Because of this choice, we had decided that the explicit implementation of the edges was not necessary, since the vertex are already linked together.
+Each Vertex has as properties an id, a color and a vector of other vertex, containing its 
+neighbors.
+Because of this choice, we had decided that the explicit implementation of the edges was not 
+necessary, since the vertex are already linked together.
 
 The Graph attributes are two vectors: the first one contais the colors progressively used and inserted by the running algorithm, the second one is the full list of the vertices.
 
@@ -39,18 +41,25 @@ The Graph attributes are two vectors: the first one contais the colors progressi
 
 ### Parallelization
 
-The main concept used in distributing the work within threads is the partition in range of the graph's vertex. Thanks to the class `Splitter`, the graph is divided in a number of sets equal to the number of threads, and each thread is assigned a specific range, in which perform the running algorithm.
+The main concept used in distributing the work within threads is the partition in range of the 
+graph's vertex. Thanks to the class `Splitter`, the graph is divided in a number of sets equal to 
+the number of threads, and each thread is assigned a specific range [from, to), in which perform the running 
+algorithm.
 
-This method avoids conflicts while using common data, and consequently reduces the need of complex synchronization structures.
+This method avoids conflicts while using common data, and consequently reduces the need of 
+complex synchronization structures.
 
 ### Algorithms
 
-All the algorithms are implemented as specialization classes of the `Algorithm` class. It declares two virtual methods:
+All the algorithms are implemented as specialization classes of the `Algorithm` class. It 
+declares two virtual methods:
 * void algorithmSolver(Graph &);
 * string name() const;
 
-The algorithmSolver function must contain the full logic of that algorithm, to be triggered by the `Resolve` class.
-Each class corresponding to an algorithm that can be run in parallel has a constructor to specify how many threads to launch.
+The *algorithmSolver* function must contain the full logic of that algorithm, to be triggered by 
+the `Resolve` class.
+Each class corresponding to an algorithm that can be run in parallel has a constructor to specify 
+how many threads to launch.
 
 
 ## Project Structure
@@ -70,28 +79,107 @@ Contains the definition of vertices (`Vertex.h/cpp`), and graph (`Graph.h/cpp`).
 ### Algorithms
 
 #####Sequential
-#####Greedy
 #####SDL
 #####LDF
 
 
 
 #####MIS_Sequential
-The class MIS_Sequential.h/.ccp implements the basic algorithm to find a maximal indipendent set in a graph, as it was explained into the `allwrigth1995`. As the name suggest, this algorithm is sequential and no parallelism is provided.
+The class `MIS_Sequential.h/.ccp` implements the basic algorithm to find a maximal indipendent set 
+in a graph, as it was explained into the `allwrigth1995.pdf`. As the name suggest, this algorithm is 
+sequential and no parallelism is provided.
 
-Firstly, it is called the method find_MIS_Sequential to fully process the graph, and to insert all the indipendent set in a variable <set< set< int>> mis. The indipendent sets are found by restricting the list of available vertices at each iteration, deleting all the neighbors of the current vertex.
+Firstly, it is called the method *find_MIS_Sequential* to fully process the graph, and to insert 
+all the indipendent set in a variable <set< set< int>> mis. The indipendent sets are found by 
+restricting the list of available vertices at each iteration, deleting all the neighbors of the 
+current vertex.
 
-Once this process ends, the mis variable is explored and a color is assigned to each set using the function color_MIS.
+Once this process ends, the mis variable is explored and a color is assigned to each set using 
+the function *color_MIS*.
 
-Even if this algorithm works, we have decided to not include it into the results because it is very slow, and it is due to the data structures we choose at the beginning of the project.
+Even if this algorithm works, we have decided to not include it into the results because it is 
+very slow, and it is due to the data structures we choose at the beginning of the project.
 
-#####Jones Plassman
+#####Jones-Plassman
 
+The Jones-Plassman algorithm is implemented by the `JP.h/.cpp` class, and it is based on the concept of MIS, 
+but it is quite different, also considering that is a concurrent algorithm. The implementation is based on
+the explanation available in `allwrigth1995.pdf`.
 
+The criteria for choosing the nodes to insert into the indipendent set is made by assigning to 
+each vertex a random weight when the algorithm starts. Specifically, the vector<int> 
+assigned_vertices is filled by each thread in its range [from, to) using *assign_randomNum_to_vertices* 
 
+    void JP::assign_randomNum_to_vertices(int from, int to, std::vector<int> &assigned_vertices) {
+    
+        srand(time(0));
+    
+        for (int i = from; i < to; i++) {
+            assigned_vertices[i] = rand();
+        }
+    }
+        
+Then it is invoked *find_and_color_MIS*, and the search of a candidate is based on
+the result of the function *isMax_between_neighbor* : the current vertex is chosen
+only if the value of its associated random number is the highest respect to the neighbors one.
+After this check, the vertex can be colored immediatly.
+
+Since the graph's vector of colors is a shared resources, this last operation
+is protected using a mutex.
+
+    if (isMax) {
+       color_mutex.lock();
+       graph.assign_color(verticesList->at(j));
+       assigned_vertices[cur_node_id] = 0;       //the next iteration it won't be the max
+       color_mutex.unlock();
+        ...
+        
+The algorithm ends when all threads have colored their vertices.
 
 #####Luby
 
+The Luby algorithm is implemented by the `Luby.h/.cpp` class, referring to the
+description made in `allwrigth1995.pdf`. It is a parallel algorithm and it has
+lot in common with the Jones-Plassman.
+
+In fact, in both cases a random weight is associated to all vertices and then
+it is needed a search of the maximum value between neighbors, but here 
+the weights are produced by performing a permutation of the vertices ids.
+
+Another important difference respect to the Jones-Plassman is that we
+introduce again the variables set< set< int>> mis and the current indipendent 
+set I, like in the MIS_Sequential. However, since the Luby is a concurrent
+context, they are shared resources, and a stronger synchronization is needed.
+
+We've chosen an implementation with a condition variable and an int semMIS;
+
+    //at this point a MIS is found
+        std::unique_lock <std::mutex> lock(I_mutex);
+        semMIS--;
+
+        if (semMIS <= 0) {
+            //Insertion of indipendent set into mis
+            mis.insert(I);
+            graph.addColor(max_color);
+            max_color++;
+            I.clear();
+            if (num_remain == 0) {
+                running_threads--;
+            }
+            semMIS = running_threads;
+            mis_cond_var.notify_all();
+
+        } else {
+
+            if (num_remain == 0) {
+                running_threads--;
+            }
+            mis_cond_var.wait(lock);
+        }
+
+In this way the thread that first completes the assigment of its vertices 
+will wait until the last thread inserts the found indipendent set into the mis
+and clear it for the next iteration.
 
 
 ## Experimental Evaluation
