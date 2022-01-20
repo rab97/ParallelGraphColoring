@@ -16,7 +16,8 @@
 
 Resolve::Resolve(Graph &g) : algorithms(
         {new Sequential(),
-         new MIS_Sequential(),
+         //new MIS_Sequential(),
+
          new LDF(1), new LDF(2), new LDF(4), new LDF(8),
          new SDL(1), new SDL(2), new SDL(4), new SDL(8),
          new JP(1), new JP(2), new JP(4), new JP(8),

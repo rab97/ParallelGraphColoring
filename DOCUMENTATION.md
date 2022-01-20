@@ -29,10 +29,29 @@ color set". The nature of the coloring problem depends on the number of colors b
 ## Main Design Choices
 
 ### Graph
+The graph is implemented by means of two classes: Graph and Vertex.
+Each Vertex has as properties an id, a color and a vector of other vertex, containing its neighbors.
+Because of this choice, we had decided that the explicit implementation of the edges was not necessary, since the vertex are already linked together.
+
+The Graph attributes are two vectors: the first one contais the colors progressively used and inserted by the running algorithm, the second one is the full list of the vertices.
 
 ### Parsing
 
-### Paralelization
+### Parallelization
+
+The main concept used in distributing the work within threads is the partition in range of the graph's vertex. Thanks to the class `Splitter`, the graph is divided in a number of sets equal to the number of threads, and each thread is assigned a specific range, in which perform the running algorithm.
+
+This method avoids conflicts while using common data, and consequently reduces the need of complex synchronization structures.
+
+### Algorithms
+
+All the algorithms are implemented as specialization classes of the `Algorithm` class. It declares two virtual methods:
+* void algorithmSolver(Graph &);
+* string name() const;
+
+The algorithmSolver function must contain the full logic of that algorithm, to be triggered by the `Resolve` class.
+Each class corresponding to an algorithm that can be run in parallel has a constructor to specify how many threads to launch.
+
 
 ## Project Structure
 
@@ -44,9 +63,36 @@ The projects is composed of several directories:
 * `resolve/`
 * `tools/`
 
-### classes
+### Classes
 
-Contains the definition of a vertex (`Vertex.h/cpp`), a vertex is identified by an `id`
+Contains the definition of vertices (`Vertex.h/cpp`), and graph (`Graph.h/cpp`).
+
+### Algorithms
+
+#####Sequential
+#####Greedy
+#####SDL
+#####LDF
+
+
+
+#####MIS_Sequential
+The class MIS_Sequential.h/.ccp implements the basic algorithm to find a maximal indipendent set in a graph, as it was explained into the `allwrigth1995`. As the name suggest, this algorithm is sequential and no parallelism is provided.
+
+Firstly, it is called the method find_MIS_Sequential to fully process the graph, and to insert all the indipendent set in a variable <set< set< int>> mis. The indipendent sets are found by restricting the list of available vertices at each iteration, deleting all the neighbors of the current vertex.
+
+Once this process ends, the mis variable is explored and a color is assigned to each set using the function color_MIS.
+
+Even if this algorithm works, we have decided to not include it into the results because it is very slow, and it is due to the data structures we choose at the beginning of the project.
+
+#####Jones Plassman
+
+
+
+
+#####Luby
+
+
 
 ## Experimental Evaluation
 

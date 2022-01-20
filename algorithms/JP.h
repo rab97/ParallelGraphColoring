@@ -23,7 +23,6 @@ class JP : public Algorithm{
 private:
 
     int num_threads;
-    std::vector<int> remaining_vertices;
 
 public:
 

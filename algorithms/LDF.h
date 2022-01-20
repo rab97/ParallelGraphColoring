@@ -18,8 +18,6 @@
 class LDF : public Algorithm {
     int num_threads;
 
-    std::vector<int> remaining_vertices;
-
 public:
     LDF(int num_threads);
 
