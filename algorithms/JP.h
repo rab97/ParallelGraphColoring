@@ -18,7 +18,7 @@
 #include "../tools/Splitter.h"
 
 
-class JP : public Algorithm{
+class JP : public Algorithm {
 
 private:
 
@@ -30,9 +30,11 @@ public:
 
     void algorithmSolver(Graph &);
 
-    void assign_randomNum_to_vertices(int from, int to, std::vector<int> & assigned_vertices, Graph graph);
-    void find_and_color_MIS(int from, int to, std::vector<int> & assigned_vertices, Graph &graph);
-    bool isMax_between_neighbor(Vertex v, std::vector<int>  & assigned_vertices);
+    void assign_randomNum_to_vertices(int from, int to, std::vector<int> &assigned_vertices, Graph graph);
+
+    void find_and_color_MIS(int from, int to, std::vector<int> &assigned_vertices, Graph &graph);
+
+    bool isMax_between_neighbor(Vertex v, int id, std::vector<int> &assigned_vertices);
 
     std::string name() const;
 

@@ -66,7 +66,7 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> &assigned_vertice
 
             if (nodes_remain.find(cur_node_id) != nodes_remain.end()) {
 
-                bool isMax = isMax_between_neighbor(verticesList->at(j), assigned_vertices);
+                bool isMax = isMax_between_neighbor(verticesList->at(j), j, assigned_vertices);
                 if (isMax) {
                     //vertex coloring
                     color_mutex.lock();
@@ -84,16 +84,16 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> &assigned_vertice
 }
 
 
-bool JP::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices) {
+bool JP::isMax_between_neighbor(Vertex v, int id, std::vector<int> &assigned_vertices) {
 
     std::vector <Vertex> neighbor = v.getNeighborList();
-    int value = assigned_vertices[v.getId()];
+    int value = assigned_vertices[id];
     int neighbor_id;
 
     for (int i = 0; i < neighbor.size(); i++) {
 
         //std::cout << "neighbor_id= " << neighbor.at(i).getId() <<endl;
-        neighbor_id = neighbor[i].getId();
+        neighbor_id = id;
 
         if (assigned_vertices[neighbor_id] > value) {
             //found a neighbor with higher value
@@ -101,7 +101,7 @@ bool JP::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices) {
 
         } else if (assigned_vertices[neighbor_id] == value) {
             //if they have the same random value look at the id
-            if (neighbor_id > v.getId()) {
+            if (neighbor_id > id) {
                 return false;
             }
         }

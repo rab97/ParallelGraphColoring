@@ -29,10 +29,9 @@ void Luby::algorithmSolver(Graph &graph) {
     std::vector <Vertex> *verticesList = graph.getVerticesList();
 
 
-
     vector<int> assigned_vertices(num_vertices);
-    for(int i=0; i< num_vertices; i++) {
-        assigned_vertices.at(i)= (verticesList->at(i).getId());
+    for (int i = 0; i < num_vertices; i++) {
+        assigned_vertices.at(i) = (verticesList->at(i).getId());
     }
     semMIS = num_threads;
     std::iota(assigned_vertices.begin(), assigned_vertices.end(), 0);
@@ -50,9 +49,9 @@ void Luby::algorithmSolver(Graph &graph) {
         threads.emplace_back(
                 std::thread([&graph, &mis, &I, &assigned_vertices, &max_color, &running_threads, this, s, i]() {
                     int from = s.get_min(i), to = s.get_max(i);
-            find_MIS_Parallel(from, to, max_color, running_threads,mis, I, assigned_vertices, graph);
+                    find_MIS_Parallel(from, to, max_color, running_threads, mis, I, assigned_vertices, graph);
 
-        }));
+                }));
     }
     for (auto &thread: threads) {
         thread.join();
@@ -85,7 +84,7 @@ void Luby::find_MIS_Parallel(int from, int to, int &max_color, int &running_thre
 
             if (nodes_remain.find(j) != nodes_remain.end()) {
 
-                bool isMax = isMax_between_neighbor(verticesList->at(j), assigned_vertices);
+                bool isMax = isMax_between_neighbor(verticesList->at(j), j, assigned_vertices);
                 if (isMax) {
                     //vertex is colored and inserted into the indipendent set
                     I_mutex.lock();
@@ -99,7 +98,7 @@ void Luby::find_MIS_Parallel(int from, int to, int &max_color, int &running_thre
                     int neighbor_id;
                     for (int k = 0; k < neighborList.size(); k++) { //for each neighbor of that node
 
-                        neighbor_id = neighborList[k].getId();
+                        neighbor_id = neighborList[k].getId() - 1;
 
 
                         if (nodes_remain.find(neighbor_id) != nodes_remain.end()) {
@@ -153,16 +152,15 @@ void Luby::find_MIS_Parallel(int from, int to, int &max_color, int &running_thre
 }
 
 
-
-bool Luby::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices) {
+bool Luby::isMax_between_neighbor(Vertex v, int id, std::vector<int> &assigned_vertices) {
 
     std::vector <Vertex> neighbor = v.getNeighborList();
-    int value = assigned_vertices[v.getId()];
+    int value = assigned_vertices[id];
     int neighbor_id;
 
     for (int i = 0; i < neighbor.size(); i++) {
 
-        neighbor_id = neighbor[i].getId();
+        neighbor_id = id;
 
         if (assigned_vertices[neighbor_id] > value) {
             //found a neighbor with higher value
@@ -170,7 +168,7 @@ bool Luby::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices)
 
         } else if (assigned_vertices[neighbor_id] == value) {
             //if they have the same random value look at the id
-            if (neighbor_id > v.getId()) {
+            if (neighbor_id > id) {
                 return false;
             }
         }
@@ -179,8 +177,6 @@ bool Luby::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices)
     // with a major rand value
     return true;
 }
-
-
 
 
 std::string Luby::name() const {

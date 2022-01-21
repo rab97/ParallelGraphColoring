@@ -34,7 +34,7 @@ public:
     void find_MIS_Parallel(int from, int to, int &max_color, int &running_threads, std::set <std::set<int>> &mis,
                            std::set<int> &I, vector<int> &assigned_vertices, Graph &graph);
 
-    bool isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices);
+    bool isMax_between_neighbor(Vertex v, int id, std::vector<int> &assigned_vertices);
 
     std::string name() const;
 
