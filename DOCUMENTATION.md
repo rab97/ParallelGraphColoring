@@ -124,7 +124,7 @@ the result of the function *isMax_between_neighbor* : the current vertex is chos
 only if the value of its associated random number is the highest respect to the neighbors one.
 After this check, the vertex can be colored immediatly.
 
-Since the graph's vector of colors is a shared resources, this last operation
+Since the graph's vector of colors is a shared resource, this last operation
 is protected using a mutex.
 
     if (isMax) {
