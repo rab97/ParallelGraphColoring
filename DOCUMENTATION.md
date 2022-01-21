@@ -58,7 +58,7 @@ declares two virtual methods:
 
 The *algorithmSolver* function must contain the full logic of that algorithm, to be triggered by 
 the `Resolve` class.
-Each class corresponding to an algorithm that can be run in parallel has a constructor to specify 
+Each class that corresponds to an algorithm that can be run in parallel has a constructor to specify 
 how many threads to launch.
 
 
