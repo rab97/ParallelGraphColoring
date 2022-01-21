@@ -1,0 +1,18 @@
+name, time, mem_usage, num_colors
+Sequential, 14814.7, 8.02734, 21
+LDF (1 threads), 62673.3, 24.0234, 22
+LDF (2 threads), 31554.2, 16.0234, 22
+LDF (4 threads), 17412.8, 24.0469, 22
+LDF (8 threads), 10481.1, 8.08984, 21
+SDL (1 threads), 19524.7, 13.9961, 22
+SDL (2 threads), 9854.75, 5.99609, 22
+SDL (4 threads), 5468.82, 3.99609, 22
+SDL (8 threads), 3512.05, 0, 21
+JP (1 threads), 56282.4, 47.9766, 21
+JP (2 threads), 40484, 59.9805, 21
+JP (4 threads), 36655.4, 107.957, 22
+JP (8 threads), 65095.6, 231.914, 21
+Luby (1 threads), 87031, 216.727, 35
+Luby (2 threads), 47046.2, 25.1016, 37
+Luby (4 threads), 28599.9, 0, 40
+Luby (8 threads), 22294, 0, 49

@@ -43,6 +43,7 @@ void JP::assign_randomNum_to_vertices(int from, int to, std::vector<int> &assign
     for (int i = from; i < to; i++) {
         assigned_vertices[i] = rand();
     }
+
 }
 
 
@@ -94,13 +95,13 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> &assigned_vertice
 bool JP::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices) {
 
     std::vector <Vertex> neighbor = v.getNeighborList();
-    int value = assigned_vertices[v.getId() - 1];
+    int value = assigned_vertices[v.getId()];
     int neighbor_id;
 
     for (int i = 0; i < neighbor.size(); i++) {
 
         //std::cout << "neighbor_id= " << neighbor.at(i).getId() <<endl;
-        neighbor_id = neighbor[i].getId() - 1;
+        neighbor_id = neighbor[i].getId();
 
         if (assigned_vertices[neighbor_id] > value) {
             //found a neighbor with higher value
@@ -108,7 +109,7 @@ bool JP::isMax_between_neighbor(Vertex v, std::vector<int> &assigned_vertices) {
 
         } else if (assigned_vertices[neighbor_id] == value) {
             //if they have the same random value look at the id
-            if (neighbor_id + 1 > v.getId()) {
+            if (neighbor_id > v.getId()) {
                 return false;
             }
         }

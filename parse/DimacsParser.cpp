@@ -18,14 +18,23 @@ Graph DimacsParser::parse() {
 
     Graph g(V);
     for (int i = 0; i < V; i++) {
-        Vertex v(i + 1);
+        Vertex v(i);
         std::string line;
         std::getline(file, line);
         std::vector<int> neighbours = parse_numbers(line);
         for (int n: neighbours) {
-            v.addNeighbor(Vertex(n + 1));
+            v.addNeighbor(Vertex(n));
         }
         g.addVertex(v);
+    }
+    std::vector <Vertex> *verticesList = g.getVerticesList();
+    for (int i = 0; i < verticesList->size(); i++) {
+        Vertex v = verticesList->at(i);
+        std::vector <Vertex> n_list = v.getNeighborList();
+        for (int j = 0; j < n_list.size(); j++) {
+            if (n_list[j].getId() > v.getId())
+                verticesList->at(n_list[j].getId()).addNeighbor(v);
+        }
     }
     return g;
 }
