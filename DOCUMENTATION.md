@@ -30,10 +30,10 @@ color set". The nature of the coloring problem depends on the number of colors b
 
 ### Graph
 The graph is implemented by means of two classes: Graph and Vertex.
-Each Vertex has as properties an id, a color and a vector of other vertex, containing its 
+Each Vertex has as properties an id, a color and a vector of other vertices, containing its 
 neighbors.
 Because of this choice, we had decided that the explicit implementation of the edges was not 
-necessary, since the vertex are already linked together.
+necessary, since the vertices are already linked together.
 
 The Graph attributes are two vectors: the first one contais the colors progressively used and inserted by the running algorithm, the second one is the full list of the vertices.
 
@@ -42,7 +42,7 @@ The Graph attributes are two vectors: the first one contais the colors progressi
 ### Parallelization
 
 The main concept used in distributing the work within threads is the partition in range of the 
-graph's vertex. Thanks to the class `Splitter`, the graph is divided in a number of sets equal to 
+graph's vertices. Thanks to the class `Splitter`, the graph is divided in a number of sets equal to 
 the number of threads, and each thread is assigned a specific range [from, to), in which perform the running 
 algorithm.
 
