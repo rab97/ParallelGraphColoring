@@ -24,7 +24,7 @@ void JP::algorithmSolver(Graph &graph) {
         threads.emplace_back(std::thread([&graph, &assigned_vertices, this, s, i]() {
             int from = s.get_min(i), to = s.get_max(i);
 
-            assign_randomNum_to_vertices(from, to, assigned_vertices, graph);
+            assign_randomNum_to_vertices(from, to, assigned_vertices);
 
             find_and_color_MIS(from, to, assigned_vertices, graph);
         }));
@@ -36,13 +36,14 @@ void JP::algorithmSolver(Graph &graph) {
 }
 
 
-void JP::assign_randomNum_to_vertices(int from, int to, std::vector<int> &assigned_vertices, Graph graph) {
+void JP::assign_randomNum_to_vertices(int from, int to, std::vector<int> &assigned_vertices) {
 
     srand(time(0));
 
     for (int i = from; i < to; i++) {
         assigned_vertices[i] = rand();
     }
+
 }
 
 
@@ -77,10 +78,17 @@ void JP::find_and_color_MIS(int from, int to, std::vector<int> &assigned_vertice
                     //remove it from nodes_remain
                     num_remain--;
                     nodes_remain.erase(cur_node_id);
+
                 }
+
             }
+
         }
+
+
     }
+
+
 }
 
 
