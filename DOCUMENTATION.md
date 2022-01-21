@@ -287,12 +287,87 @@ considering three properties:
 The running simulation was performed on a _AMD Ryzen 7 4800H, 2.9 GHz, 16 threads, 8 CPU cores_.
 
 The results are exposed in the `outputs/` folder that contains a `.csv` file for each benchmark runned. Each file
-contains the report in term of time elapsed, memory usage and number of colors used for each algorithm (togheter with
+contains the report in terms of time elapsed, memory usage and number of colors used for each algorithm (togheter with
 the number of threads).
 
-Finally in the follow there is a description of the results obtained with several graph with different sizes and a
-comparison between the different algorithm. The purpose of this simulation is to find the algorithm with the best
+Finally, in the follow there is a description of the results obtained with several graph with different sizes and a
+comparison between the different algorithms. The purpose of this simulation is to find the algorithm with the best
 performance according to the properties written before.
 
+Note that the memory usage is not correct for some results because the allcoator sometimes does not free memory for future use.
 
+###rgg_n_16_s0.graph
+
+This is a graph of `num_vertices` and `num_edges`.
+
+|algorithm_name  |time    |mem_usage |num_colors|
+|----------------|--------|----------|----------|
+|Sequential      | 520.396| 0.367188 | 18       |
+|LDF (1 threads) | 2091.97| 8.51562  | 16       |
+|LDF (2 threads) | 1051.54| 8.26562  | 16       |
+|LDF (4 threads) | 521.977| 16.2812  | 16       |
+|LDF (8 threads) | 333.921| 0.515625 | 16       |
+|SDL (1 threads) | 801.347| 0        | 16       |
+|SDL (2 threads) | 399.006| 0        | 16       |
+|SDL (4 threads) | 216.712| 0.0703125| 16       |
+|SDL (8 threads) | 106.524| 0        | 16       |
+|JP (1 threads)  | 1916.73| 22.0078  | 16       |
+|JP (2 threads)  | 1255.64| 25.9961  | 17       |
+|JP (4 threads)  | 896.861| 47.6289  | 17       |
+|JP (8 threads)  | 1496.58| 95.8125  | 16       |
+|Luby (1 threads)| 2577.45| 2.48438  | 26       |
+|Luby (2 threads)| 1454.59| 0        | 27       |
+|Luby (4 threads)| 816.104| 0        | 30       |
+|Luby (8 threads)| 554.341| 0        | 34       |
+
+![img_1.png](img_1.png)
+
+As it is shown on the chart and on the results table, the algorithm that seems to perform better is the Smallest Degree Last algorithm.
+In general each algorithm increase its own performance when the number of threads running is higher. However, the worst algorithm in terms of time elapsed is Luby.
+
+###rgg_n_18_s0.graph
+|name            |time    |mem_usage |num_colors|
+|----------------|--------|----------|----------|
+|Sequential      | 2347.99| 1.10156  | 19       |
+|LDF (1 threads) | 7711.51| 10.0195  | 18       |
+|LDF (2 threads) | 3093.83| 9.01953  | 18       |
+|LDF (4 threads) | 1718.7 | 17.0312  | 18       |
+|LDF (8 threads) | 1118.85| 1.0625   | 18       |
+|SDL (1 threads) | 2119.06| 1.50391  | 18       |
+|SDL (2 threads) | 1079.9 | 0        | 18       |
+|SDL (4 threads) | 591.981| 0.5      | 18       |
+|SDL (8 threads) | 483.753| 0        | 18       |
+|JP (1 threads)  | 5491.73| 63.7344  | 19       |
+|JP (2 threads)  | 4122.14| 62.9805  | 17       |
+|JP (4 threads)  | 3264.4 | 125.465  | 21       |
+|JP (8 threads)  | 7064.58| 252.684  | 19       |
+|Luby (1 threads)| 10280.1| 9.88281  | 29       |
+|Luby (2 threads)| 4434.26| 0        | 32       |
+|Luby (4 threads)| 2813.86| 0        | 34       |
+|Luby (8 threads)| 2302.33| 0        | 46       |
+
+![img_2.png](img_2.png)
+
+###rgg_n_2_21_s0.graph
+|name            |time    |mem_usage |num_colors|
+|----------------|--------|----------|----------|
+|Sequential      | 14814.7| 8.02734  | 21       |
+|LDF (1 threads) | 62673.3| 24.0234  | 22       |
+|LDF (2 threads) | 31554.2| 16.0234  | 22       |
+|LDF (4 threads) | 17412.8| 24.0469  | 22       |
+|LDF (8 threads) | 10481.1| 8.08984  | 21       |
+|SDL (1 threads) | 19524.7| 13.9961  | 22       |
+|SDL (2 threads) | 9854.75| 5.99609  | 22       |
+|SDL (4 threads) | 5468.82| 3.99609  | 22       |
+|SDL (8 threads) | 3512.05| 0        | 21       |
+|JP (1 threads)  | 56282.4| 47.9766  | 21       |
+|JP (2 threads)  | 40484  | 59.9805  | 21       |
+|JP (4 threads)  | 36655.4| 107.957  | 22       |
+|JP (8 threads)  | 65095.6| 231.914  | 21       |
+|Luby (1 threads)| 87031  | 216.727  | 35       |
+|Luby (2 threads)| 47046.2| 25.1016  | 37       |
+|Luby (4 threads)| 28599.9| 0        | 40       |
+|Luby (8 threads)| 22294  | 0        | 49       |
+
+![img_3.png](img_3.png)
 
