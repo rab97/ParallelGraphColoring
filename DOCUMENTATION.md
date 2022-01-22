@@ -396,7 +396,11 @@ This is a graph of 2097152 vertices and 28997942 edges.
 
 ![img_3.png](img_3.png)
 
-Finally, there is a comparison between the two graphs represented in `rgg_16_s0.graph` and `rgg_21_s0.graph`. That are the smallest one analysed and the biggest one. The first one is about 500.000 vertices and the second one is about 2 milions vertices.
+Here we present a comparison between the two graphs represented in `rgg_16_s0.graph` and `rgg_21_s0.graph`. That are the smallest one analysed and the biggest one. The first one is about 500.000 vertices and the second one is about 2 milions vertices.
 ![](chart.png)
 As it is shown there is a significant gap between the execution of Luby algorithm with one single thread and the other ones.
 In general the different algorithms perform with a similar attitude for smallest graph but differences are significant when the dimension of the graph grow up.
+   
+![meta-chart](meta-chart.jpeg)
+                    
+Finally, the comparison of all algorithms running on graphs of intermediate dimensions.
