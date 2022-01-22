@@ -14,12 +14,6 @@ Similarly, an edge coloring assigns a color to each edge so that no two adjacent
 coloring of a planar graph assigns a color to each face or region so that no two faces that share a boundary have the
 same color.
 
-Vertex coloring is often used to introduce graph coloring problems, since other coloring problems can be transformed
-into a vertex coloring instance. For example, an edge coloring of a graph is just a vertex coloring of its line graph,
-and a face coloring of a plane graph is just a vertex coloring of its dual. However, non-vertex coloring problems are
-often stated and studied as-is. This is partly pedagogical, and partly because some problems are best studied in their
-non-vertex form, as in the case of edge coloring.
-
 The convention of using colors originates from coloring the countries of a map, where each face is literally colored.
 This was generalized to coloring the faces of a graph embedded in the plane. By planar duality it became coloring the
 vertices, and in this form it generalizes to all graphs. In mathematical and computer representations, it is typical to
@@ -275,6 +269,27 @@ We've chosen an implementation with a condition variable and an int semMIS;
 In this way the thread that first completes the assigment of its vertices will wait until the last thread inserts the
 found indipendent set into the mis and clear it for the next iteration.
 
+## Tools
+
+### Splitter
+The `Splitter` class is used to split a range into equal parts. This is useful to equally assign each threads a set of vertices to work on.
+`VectorSplitter` is applied to vectors and its main function is the one to return a span (supported with `span.hpp`) for the given thread.
+
+###Memory
+The `Memory` class is used to monitoring the memory usage of the different executions when the programm is running.
+Its main function is to compute the actual memory usage of the program (before a single algorithm runs) and the total memory usage after algorithm execution.
+The single memory usage of the given algorithm is computed by the `stop()` method that returns the difference between the total memory usage and the current one.
+
+All this was possible through the use of `ifstream` library and `proc/self/statm` that shows some information about the running process, including data size occupied.
+
+###OutputCsv
+The `OutputCsv` is a simple class that writes on a `.csv` file the results obtained for each given graph.
+
+## Resolve
+The `Resolve` class is used to run both single algorithms (with all chosen thread) and general simulation with all algorithms (and their threads).
+
+In the class there is also the computation of the time elapsed for eaxh execution, performed with `crono` library.
+
 # Experimental Evaluation
 
 All the algorithms and the graph implementation are run and tested. The performace of each algorithm are evaluated
@@ -298,7 +313,7 @@ Note that the memory usage is not correct for some results because the allcoator
 
 ###rgg_n_16_s0.graph
 
-This is a graph of `num_vertices` and `num_edges`.
+This is a graph of 65536 vertices and 342568 edges.
 
 |algorithm_name  |time    |mem_usage |num_colors|
 |----------------|--------|----------|----------|
@@ -323,9 +338,13 @@ This is a graph of `num_vertices` and `num_edges`.
 ![img_1.png](img_1.png)
 
 As it is shown on the chart and on the results table, the algorithm that seems to perform better is the Smallest Degree Last algorithm.
-In general each algorithm increase its own performance when the number of threads running is higher. However, the worst algorithm in terms of time elapsed is Luby.
+In general each algorithm increase its own performance when the number of threads running is higher, at expense of an higher usage of memory. However, the worst algorithm in terms of time elapsed is Luby with a single thread.
+Luby has a particular trend in its performance: with a single thread is the worst algorithm but with higher thread becomes faster than other algorithms like JP. At the other hand JP is the worst algorithm in time elapsed with 8 threads execution.
 
 ###rgg_n_18_s0.graph
+
+This is a graph of 524288 vertices and 6561433 edges.
+
 |name            |time    |mem_usage |num_colors|
 |----------------|--------|----------|----------|
 |Sequential      | 2347.99| 1.10156  | 19       |
@@ -348,7 +367,11 @@ In general each algorithm increase its own performance when the number of thread
 
 ![img_2.png](img_2.png)
 
+As it is shown in the results the trend of the different algorithms in terms of time elapsed and memory usage is pretty similar to the previous analysis on a smaller graph.
+So the worst algorithm is Luby with a better improve in performace with several threads running and the best algorithm is SDL.
 ###rgg_n_2_21_s0.graph
+This is a graph of 2097152 vertices and 28997942 edges.
+
 |name            |time    |mem_usage |num_colors|
 |----------------|--------|----------|----------|
 |Sequential      | 14814.7| 8.02734  | 21       |
@@ -371,3 +394,7 @@ In general each algorithm increase its own performance when the number of thread
 
 ![img_3.png](img_3.png)
 
+Finally, there is a comparison between the two graphs represented in `rgg_16_s0.graph` and `rgg_21_s0.graph`. That are the smallest one analysed and the biggest one. The first one is about 500.000 vertices and the second one is about 2 milions vertices.
+![](chart.png)
+As it is shown there is a significant gap between the execution of Luby algorithm with one single thread and the other ones.
+In general the different algorithms perform with a similar attitude for smallest graph but differences are significant when the dimension of the graph grow up.
