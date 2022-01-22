@@ -25,8 +25,8 @@ color set". The nature of the coloring problem depends on the number of colors b
 ## Graph
 
 The graph is implemented by means of two classes: Graph and Vertex. Each Vertex has as properties an id, a color and a
-vector of other vertex, containing its neighbors. Because of this choice, we had decided that the explicit
-implementation of the edges was not necessary, since the vertex are already linked together.
+vector of other vertices, containing its neighbors. Because of this choice, we had decided that the explicit
+implementation of the edges was not necessary, since the vertices are already linked together.
 
 The Graph attributes are two vectors: the first one contais the colors progressively used and inserted by the running
 algorithm, the second one is the full list of the vertices.
@@ -92,7 +92,7 @@ There is an example of `.graph` file and its content:
 
 The main concept used in distributing the work within threads is the partition in range of the graph's vertex. Thanks to
 the class `Splitter`, the graph is divided in a number of sets equal to the number of threads, and each thread is
-assigned a specific range, in which perform the running algorithm.
+assigned a specific range [from, to), in which perform the running algorithm.
 
 This method avoids conflicts while using common data, and consequently reduces the need of complex synchronization
 structures.
@@ -120,7 +120,7 @@ The projects is composed of several directories:
 
 ## Classes
 
-Contains the definition of vertices (`Vertex.h/cpp`), and graph (`Graph.h/cpp`).
+Contains the definition of vertex (`Vertex.h/cpp`), and graph (`Graph.h/cpp`), as previously described.
 
 # Algorithms
 
@@ -169,8 +169,8 @@ startegy described before.
 The Smallest Degree Last algorithm implements the algorithm exposed in the document _A Comparison of Parallel Graph
 Coloring Algorithms, J. R. Allwright, 1995_.
 
-The algorithm follows the same strategy adopted by the previous algorithm. But in this case it uses also weights to
-decide wich vertex to color firstly.
+The algorithm follows the same strategy adopted by the LDF, but in this case it uses also weights to
+decide which vertex to color firstly.
 
 The flow of the algorithm is composed of two phases:
 
@@ -267,7 +267,7 @@ We've chosen an implementation with a condition variable and an int semMIS;
         }
 
 In this way the thread that first completes the assigment of its vertices will wait until the last thread inserts the
-found indipendent set into the mis and clear it for the next iteration.
+found indipendent set into the mis, and clear it for the next iteration.
 
 ## Tools
 
