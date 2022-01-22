@@ -74,7 +74,7 @@ expensive in term of time and memory usage. There is an example of a `.gra` file
 The `Dimacs10` format stores gaph with an adjacency list, the first line contains the number of vertices and optionally
 the number of edges (ignored due to the graph implementation). Then for each line there is the list of IDs neighbors for
 the i-th vertex. Differently from the previous format the neighborhood is shown twice, so two near vertices appears in
-both neighbors list. For this reason the algorithm is cheaper than the previous algorithm in term of memory usage and
+both neighbors list. For this reason the algorithm is cheaper than the previous case in terms of memory usage and
 time.
 
 There is an example of `.graph` file and its content:
