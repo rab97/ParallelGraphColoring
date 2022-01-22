@@ -97,7 +97,7 @@ assigned a specific range [from, to), in which perform the running algorithm.
 This method avoids conflicts while using common data, and consequently reduces the need of complex synchronization
 structures.
 
-# Algorithms
+## Algorithms
 
 All the algorithms are implemented as specialization classes of the `Algorithm` class. It declares two virtual methods:
 
@@ -122,11 +122,11 @@ The projects is composed of several directories:
 
 Contains the definition of vertex (`Vertex.h/cpp`), and graph (`Graph.h/cpp`), as previously described.
 
-# Algorithms
+## Algorithms
 
 Algorithms definition and implementation are exposed in the `algorithm/` folder.
 
-## Sequential
+### Sequential
 
 The sequential algorithm implements the well-known greedy strategy shown in the document _A Comparison of Parallel Graph
 Coloring Algorithms, J. R. Allwright, 1995_.
@@ -154,7 +154,7 @@ int Graph::assign_color(Vertex v) {
 }
 ```
 
-## Largest Degree First
+### Largest Degree First
 
 The Largest Degree First algorithm implements the algorithm exposed in the document _A Comparison of Parallel Graph
 Coloring Algorithms, J. R. Allwright, 1995_.
@@ -164,7 +164,7 @@ that have largest degrees. It is parallelized among the number of threads that a
 assign colors to the subset of vertices it has to work on. The strategy is to assign the right color according to the
 startegy described before.
 
-## Smallest Degree Last
+### Smallest Degree Last
 
 The Smallest Degree Last algorithm implements the algorithm exposed in the document _A Comparison of Parallel Graph
 Coloring Algorithms, J. R. Allwright, 1995_.
@@ -179,7 +179,7 @@ The flow of the algorithm is composed of two phases:
    with a unique weight.
 2) `coloring phase`: colors the sets provided from the previous step starting from the largest weight.
 
-## MIS_Sequential
+### MIS_Sequential
 
 The class `MIS_Sequential.h/.ccp` implements the basic algorithm to find a maximal indipendent set in a graph, as it was
 explained into the `allwrigth1995.pdf`. As the name suggest, this algorithm is sequential and no parallelism is
@@ -194,7 +194,7 @@ Once this process ends, the mis variable is explored and a color is assigned to 
 Even if this algorithm works, we have decided to not include it into the results because it is very slow, and it is due
 to the data structures we choose at the beginning of the project.
 
-## Jones Plassman
+### Jones Plassman
 
 The Jones-Plassman algorithm is implemented by the `JP.h/.cpp` class, and it is based on the concept of MIS, but it is
 quite different, also considering that is a concurrent algorithm. The implementation is based on the explanation
@@ -228,7 +228,7 @@ Since the graph's vector of colors is a shared resource, this last operation is 
 
 The algorithm ends when all threads have colored their vertices.
 
-## Luby
+### Luby
 
 The Luby algorithm is implemented by the `Luby.h/.cpp` class, referring to the description made in `allwrigth1995.pdf`.
 It is a parallel algorithm and it has lot in common with the Jones-Plassman.
@@ -275,14 +275,14 @@ found indipendent set into the mis, and clear it for the next iteration.
 The `Splitter` class is used to split a range into equal parts. This is useful to equally assign each threads a set of vertices to work on.
 `VectorSplitter` is applied to vectors and its main function is the one to return a span (supported with `span.hpp`) for the given thread.
 
-###Memory
+### Memory
 The `Memory` class is used to monitoring the memory usage of the different executions when the programm is running.
 Its main function is to compute the actual memory usage of the program (before a single algorithm runs) and the total memory usage after algorithm execution.
 The single memory usage of the given algorithm is computed by the `stop()` method that returns the difference between the total memory usage and the current one.
 
 All this was possible through the use of `ifstream` library and `proc/self/statm` that shows some information about the running process, including data size occupied.
 
-###OutputCsv
+### OutputCsv
 The `OutputCsv` is a simple class that writes on a `.csv` file the results obtained for each given graph.
 
 ## Resolve
