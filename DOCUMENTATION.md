@@ -213,8 +213,8 @@ assigned_vertices is filled by each thread in its range [from, to) using *assign
         }
     }
 
-Then it is invoked *find_and_color_MIS*, and the search of a candidate is based on the result of the function *
-isMax_between_neighbor* : the current vertex is chosen only if the value of its associated random number is the highest
+Then it is invoked *find_and_color_MIS*, and the search of a candidate is based on the result of the function *isMax_between_neighbor* : 
+the current vertex is chosen only if the value of its associated random number is the highest
 respect to the neighbors one. After this check, the vertex can be colored immediatly.
 
 Since the graph's vector of colors is a shared resource, this last operation is protected using a mutex.
