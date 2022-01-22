@@ -309,9 +309,9 @@ Finally, in the follow there is a description of the results obtained with sever
 comparison between the different algorithms. The purpose of this simulation is to find the algorithm with the best
 performance according to the properties written before.
 
-Note that the memory usage is not correct for some results because the allcoator sometimes does not free memory for future use.
+Note that the memory usage is not correct for some results because the allocator sometimes does not free memory for future use.
 
-###rgg_n_16_s0.graph
+### rgg_n_16_s0.graph
 
 This is a graph of 65536 vertices and 342568 edges.
 
