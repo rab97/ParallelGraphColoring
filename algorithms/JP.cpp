@@ -101,7 +101,7 @@ bool JP::isMax_between_neighbor(Vertex v, int id, std::vector<int> &assigned_ver
     for (int i = 0; i < neighbor.size(); i++) {
 
         //std::cout << "neighbor_id= " << neighbor.at(i).getId() <<endl;
-        neighbor_id = id;
+        neighbor_id = neighbor[i].getId();
 
         if (assigned_vertices[neighbor_id] > value) {
             //found a neighbor with higher value

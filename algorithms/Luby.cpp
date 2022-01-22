@@ -160,7 +160,7 @@ bool Luby::isMax_between_neighbor(Vertex v, int id, std::vector<int> &assigned_v
 
     for (int i = 0; i < neighbor.size(); i++) {
 
-        neighbor_id = id;
+        neighbor_id = neighbor[i].getId() - 1;
 
         if (assigned_vertices[neighbor_id] > value) {
             //found a neighbor with higher value

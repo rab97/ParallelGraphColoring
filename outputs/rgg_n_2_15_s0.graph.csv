@@ -1,18 +1,18 @@
 name, time, mem_usage, num_colors
-Sequential, 144.133, 0.242188, 14
-LDF (1 threads), 570.683, 8.26562, 14
-LDF (2 threads), 287.688, 8.14062, 14
-LDF (4 threads), 148.383, 16.2578, 14
-LDF (8 threads), 89.0942, 0.515625, 14
-SDL (1 threads), 226.103, 0.136719, 14
-SDL (2 threads), 118.991, 0.0117188, 14
-SDL (4 threads), 65.2446, 0, 14
-SDL (8 threads), 39.0827, 0, 14
-JP (1 threads), 256.467, 10.1445, 14
-JP (2 threads), 290.263, 12.2812, 14
-JP (4 threads), 591.472, 22.5508, 14
-JP (8 threads), 618.692, 44.9766, 14
-Luby (1 threads), 324.553, 0, 13
-Luby (2 threads), 187.55, 0, 25
-Luby (4 threads), 109.705, 0, 49
-Luby (8 threads), 89.8363, 0, 93
+Sequential, 143.071, 0.242188, 14
+LDF (1 threads), 572.01, 8.26562, 14
+LDF (2 threads), 309.156, 8.14062, 14
+LDF (4 threads), 168.853, 16.2578, 14
+LDF (8 threads), 107.979, 0.515625, 14
+SDL (1 threads), 231.557, 0.136719, 14
+SDL (2 threads), 118.591, 0.0117188, 14
+SDL (4 threads), 65.2696, 0, 14
+SDL (8 threads), 48.4384, 0, 14
+JP (1 threads), 609.282, 1.38281, 14
+JP (2 threads), 435.183, 0.507812, 15
+JP (4 threads), 312.054, 0.523438, 15
+JP (8 threads), 641.784, 0.238281, 16
+Luby (1 threads), 692.346, 2.72656, 24
+Luby (2 threads), 396.245, 0.609375, 27
+Luby (4 threads), 328.059, 0.527344, 30
+Luby (8 threads), 256.235, 0.78125, 38
