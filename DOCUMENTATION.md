@@ -341,7 +341,7 @@ As it is shown on the chart and on the results table, the algorithm that seems t
 In general each algorithm increase its own performance when the number of threads running is higher, at expense of an higher usage of memory. However, the worst in terms of time elapsed is Luby with a single thread.
 Luby has a particular trend in its performance: with a single thread is the worst algorithm but with higher thread becomes faster than other algorithms like JP. On the other hand JP is the worst algorithm in time elapsed with 8 threads execution.
 
-###rgg_n_18_s0.graph
+### rgg_n_18_s0.graph
 
 This is a graph of 524288 vertices and 6561433 edges.
 
@@ -369,7 +369,9 @@ This is a graph of 524288 vertices and 6561433 edges.
 
 As it is shown in the results the trend of the different algorithms in terms of time elapsed and memory usage is pretty similar to the previous analysis on a smaller graph.
 So the worst algorithm is Luby with a better improve in performace with several threads running and the best algorithm is SDL.
-###rgg_n_2_21_s0.graph
+                       
+### rgg_n_2_21_s0.graph
+                       
 This is a graph of 2097152 vertices and 28997942 edges.
 
 |name            |time    |mem_usage |num_colors|
