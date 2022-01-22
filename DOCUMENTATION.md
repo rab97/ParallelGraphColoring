@@ -337,9 +337,9 @@ This is a graph of 65536 vertices and 342568 edges.
 
 ![img_1.png](img_1.png)
 
-As it is shown on the chart and on the results table, the algorithm that seems to perform better is the Smallest Degree Last algorithm.
-In general each algorithm increase its own performance when the number of threads running is higher, at expense of an higher usage of memory. However, the worst algorithm in terms of time elapsed is Luby with a single thread.
-Luby has a particular trend in its performance: with a single thread is the worst algorithm but with higher thread becomes faster than other algorithms like JP. At the other hand JP is the worst algorithm in time elapsed with 8 threads execution.
+As it is shown on the chart and on the results table, the algorithm that seems to perform better is the Smallest Degree Last.
+In general each algorithm increase its own performance when the number of threads running is higher, at expense of an higher usage of memory. However, the worst in terms of time elapsed is Luby with a single thread.
+Luby has a particular trend in its performance: with a single thread is the worst algorithm but with higher thread becomes faster than other algorithms like JP. On the other hand JP is the worst algorithm in time elapsed with 8 threads execution.
 
 ###rgg_n_18_s0.graph
 
