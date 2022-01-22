@@ -113,10 +113,10 @@ launch.
 The projects is composed of several directories:
 
 * `classes/`
-* `parse/`
 * `algorithms/`
-* `resolve/`
 * `tools/`
+* `parse/`
+* `resolve/`
 
 ## Classes
 
